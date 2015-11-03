@@ -25,6 +25,8 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.Scanner;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.es.SpanishAnalyzer;
@@ -32,10 +34,14 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
@@ -44,9 +50,11 @@ import org.apache.lucene.util.Version;
 public class SearchFiles {
 
   private SearchFiles() {}
+  private static Hashtable nombres = new Hashtable();
 
   /** Simple command-line based search demo. */
   public static void main(String[] args) throws Exception {
+	nameDictionary();
     String usage =
       "Usage:\tjava org.apache.lucene.demo.SearchFiles [-index dir] [-field f] [-repeat n] [-queries file] [-query string] [-raw] [-paging hitsPerPage]\n\nSee http://lucene.apache.org/core/4_1_0/demo/ for details.";
     if (args.length > 0 && ("-h".equals(args[0]) || "-help".equals(args[0]))) {
@@ -117,7 +125,14 @@ public class SearchFiles {
         break;
       }
       
-      Query query = parser.parse(line);
+      
+      BooleanQuery b = new BooleanQuery();
+      String normalized = parser.parse(line).toString(field);
+      findNames(b, normalized);
+      findYear(b, normalized);
+      Query query = parser.parse(line + " " + b.toString());
+      
+      //Query query = parser.parse(line);
       System.out.println("Searching for: " + query.toString(field));
             
       if (repeat > 0) {                           // repeat & time as benchmark
@@ -138,7 +153,49 @@ public class SearchFiles {
     reader.close();
   }
 
-  /**
+  private static void nameDictionary() {
+	  nombres.put("javier", "");
+	  nombres.put("jorge", "");
+	  nombres.put("victor", "");
+	  nombres.put("hector", "");
+}
+
+private static void findYear(BooleanQuery b, String line) {
+	Scanner sc = new Scanner(line);
+	int menor = 10000;
+	int mayor = 999;
+	while (sc.hasNext()) {
+		if (sc.hasNextInt()) {
+			int i = sc.nextInt();
+			if (i > mayor && i < 10000) {
+				mayor = i;
+			} 
+			if (i < menor && i > 999) {
+				menor = i;
+			}
+		} else {
+			sc.next();
+		}
+    }
+	while (menor <= mayor) {
+		b.add(new TermQuery(new Term("date", Integer.toString(menor))),
+				BooleanClause.Occur.SHOULD);
+		menor++;
+	}
+}
+
+private static void findNames(BooleanQuery b, String line) {
+	Scanner sc = new Scanner(line);
+	while (sc.hasNext()) {
+		String token = sc.next();
+		if (nombres.containsKey(token)) {
+			b.add(new TermQuery(new Term("creator", token)),
+					BooleanClause.Occur.SHOULD);
+		}
+	}
+}
+
+/**
    * This demonstrates a typical paging search scenario, where the search engine presents 
    * pages of size n to the user. The user can then go to the next page if interested in
    * the next hits.
