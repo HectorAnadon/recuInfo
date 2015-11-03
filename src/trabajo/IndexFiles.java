@@ -65,12 +65,11 @@ public class IndexFiles {
   /** Index all text files under a directory. */
   public static void main(String[] args) {
     String usage = "java org.apache.lucene.demo.IndexFiles"
-                 + " [-index INDEX_PATH] [-docs DOCS_PATH] [-update]\n\n"
+                 + " [-index INDEX_PATH] [-docs DOCS_PATH] \n\n"
                  + "This indexes the documents in DOCS_PATH, creating a Lucene index"
                  + "in INDEX_PATH that can be searched with SearchFiles";
     String indexPath = "index";
     String docsPath = null;
-    boolean create = true;
     for(int i=0;i<args.length;i++) {
       if ("-index".equals(args[i])) {
         indexPath = args[i+1];
@@ -78,8 +77,6 @@ public class IndexFiles {
       } else if ("-docs".equals(args[i])) {
         docsPath = args[i+1];
         i++;
-      } else if ("-update".equals(args[i])) {
-        create = false;
       }
     }
 
@@ -102,32 +99,13 @@ public class IndexFiles {
       Analyzer analyzer = new SpanishAnalyzer();
       IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
 
-      if (create) {
-        // Create a new index in the directory, removing any
-        // previously indexed documents:
-        iwc.setOpenMode(OpenMode.CREATE);
-      } else {
-        // Add new documents to an existing index:
-        iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
-      }
+		iwc.setOpenMode(OpenMode.CREATE);
 
-      // Optional: for better indexing performance, if you
-      // are indexing many documents, increase the RAM
-      // buffer.  But if you do this, increase the max heap
-      // size to the JVM (eg add -Xmx512m or -Xmx1g):
-      //
-      // iwc.setRAMBufferSizeMB(256.0);
+
 
       IndexWriter writer = new IndexWriter(dir, iwc);
       indexDocs(writer, docDir);
 
-      // NOTE: if you want to maximize search performance,
-      // you can optionally call forceMerge here.  This can be
-      // a terribly costly operation, so generally it's only
-      // worth it when your index is relatively static (ie
-      // you're done adding documents to it):
-      //
-      // writer.forceMerge(1);
 
       writer.close();
 
@@ -211,7 +189,6 @@ public class IndexFiles {
 			doc.add(new TextField("title", xmlDoc.getElementsByTagName("dc:title").item(0).getTextContent(), Field.Store.YES));
 			doc.add(new TextField("description", xmlDoc.getElementsByTagName("dc:description").item(0).getTextContent(), Field.Store.YES));
 			doc.add(new TextField("creator", xmlDoc.getElementsByTagName("dc:creator").item(0).getTextContent(), Field.Store.YES));
-			//doc.add(new TextField("language", xmlDoc.getElementsByTagName("dc:language").item(0).getTextContent(), Field.Store.YES));
 			doc.add(new TextField("date", xmlDoc.getElementsByTagName("dc:date").item(0).getTextContent(), Field.Store.YES));
 			doc.add(new TextField("publisher", xmlDoc.getElementsByTagName("dc:publisher").item(0).getTextContent(), Field.Store.YES));
           } catch (ParserConfigurationException e) {
