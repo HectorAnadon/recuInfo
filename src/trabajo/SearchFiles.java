@@ -73,9 +73,9 @@ public class SearchFiles {
     }
 
     String index = "index";
-    String field = "contents";
+    String field = "description";
     String infoNeeds = "Datos/InfoNeeds/necesidadesInformacionElegidas.xml";
-    String output = "Datos/InfoNeeds/output.txt";
+    String output = "Datos/InfoNeeds/equipo.txt";
     
     for(int i = 0;i < args.length;i++) {
       if ("-index".equals(args[i])) {
@@ -116,6 +116,10 @@ public class SearchFiles {
       String normalized = parser.parse(line).toString(field);
       findNames(b, normalized);
       findYear(b, normalized);
+      /*String regex = "\\s*\\bcuyo\\b\\s*";
+      String regex2 = "\\s*\\brelacion\\b\\s*";
+      line = line.replaceAll(regex, " ");
+      line = line.replaceAll(regex2, " ");*/
       Query query = parser.parse(line + " " + b.toString());
       
       System.out.println("Searching for: " + query.toString(field));
@@ -221,20 +225,20 @@ private static void findNames(BooleanQuery b, String line) {
 
     int start = 0;
         
-    for (int i = start; i < numTotalHits/*numTotalHits*/; i++) {
+    for (int i = start; i < numTotalHits; i++) {
 
         Document doc = searcher.doc(hits[i].doc);
         Path path = Paths.get(doc.get("path"));
-        System.out.printf("%s\t%s\n",id, path.getFileName());
+        //System.out.printf("%s\t%s\n",id, path.getFileName());
         writer.printf("%s\t%s\n",id, path.getFileName());
         String modified = doc.get("modified");
-        /*if (path != null) {
+        if (path != null) {
           System.out.println((i+1) + ". " + path);
           System.out.println("  modified: " + new Date(Long.parseLong(modified)).toString());
           System.out.println(searcher.explain(query, hits[i].doc));
         } else {
           System.out.println((i+1) + ". " + "No path for this document");
-        }*/
+        }
                   
       }
   }

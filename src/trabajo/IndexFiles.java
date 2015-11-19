@@ -187,7 +187,7 @@ public class IndexFiles {
 			DocumentBuilder DB = DBF.newDocumentBuilder();
 			org.w3c.dom.Document xmlDoc = DB.parse(file);
 			doc.add(new TextField("title", xmlDoc.getElementsByTagName("dc:title").item(0).getTextContent(), Field.Store.YES));
-			doc.add(new TextField("description", xmlDoc.getElementsByTagName("dc:description").item(0).getTextContent(), Field.Store.YES));
+			doc.add(new TextField("description",xmlDoc.getElementsByTagName("dc:title").item(0).getTextContent()+ " " + xmlDoc.getElementsByTagName("dc:description").item(0).getTextContent(), Field.Store.YES));
 			doc.add(new TextField("creator", xmlDoc.getElementsByTagName("dc:creator").item(0).getTextContent(), Field.Store.YES));
 			doc.add(new TextField("date", xmlDoc.getElementsByTagName("dc:date").item(0).getTextContent(), Field.Store.YES));
 			doc.add(new TextField("publisher", xmlDoc.getElementsByTagName("dc:publisher").item(0).getTextContent(), Field.Store.YES));
