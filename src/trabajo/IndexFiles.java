@@ -74,7 +74,7 @@ public class IndexFiles {
       if ("-index".equals(args[i])) {
         indexPath = args[i+1];
         i++;
-      } else if ("-docs".equals(args[i])) {
+      } else if ("-docs".equals(args[i])) {		//TODO: tranform the dumps in docs
         docsPath = args[i+1];
         i++;
       }
@@ -167,6 +167,8 @@ public class IndexFiles {
           // or positional information:
           Field pathField = new StringField("path", file.getPath(), Field.Store.YES);
           doc.add(pathField);
+          
+          //TODO: add url
 
           // Add the last modified date of the file a field named "modified".
           // Use a LongField that is indexed (i.e. efficiently filterable with
@@ -192,10 +194,10 @@ public class IndexFiles {
 			doc.add(new TextField("date", xmlDoc.getElementsByTagName("dc:date").item(0).getTextContent(), Field.Store.YES));
 			doc.add(new TextField("publisher", xmlDoc.getElementsByTagName("dc:publisher").item(0).getTextContent(), Field.Store.YES));
           } catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
           } catch (SAXException e) {	
-        	// TODO Auto-generated catch block
+
 			e.printStackTrace();
           }
           doc.add(new TextField("contents", new BufferedReader(new InputStreamReader(fis, "UTF-8"))));

@@ -41,7 +41,7 @@ public class Evaluation {
 		return (2* precision * recall) / (precision + recall);
 	}
 	
-	public double precisionK (double )
+	//public double precisionK (double )
 
 	//Pre: query exists
 	private static boolean selected(Result[] results, int doc, int idQuery) {
