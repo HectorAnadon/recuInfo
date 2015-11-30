@@ -47,7 +47,7 @@ public class Parser {
 					int aux = scanner.nextInt();
 					if(infNeed != aux){
 						if(infNeed != -1){
-							ResultList.add(new Result(infNeed, lAux));
+							ResultList.add(new Result(infNeed, (ArrayList<Integer>)lAux.clone()));
 							lAux.clear();;
 						}
 						infNeed = aux;
