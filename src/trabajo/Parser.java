@@ -21,7 +21,7 @@ public class Parser {
 	
 	/**
 	 * Pre: ---
-	 * Post: Add elements of the file 'path' to the list
+	 * Post: Add elements of the file 'path' to the Qrel objects list
 	 */
 	public void startQrel (String path) {
 		try {
@@ -36,10 +36,30 @@ public class Parser {
 	
 	/**
 	 * Pre: ---
-	 * Post: Add elements of the file 'path' to the list
+	 * Post: Add elements of the file 'path' to the Result objects list
 	 */
 	public void startResult (String path) {
-		
+		  try {
+				scanner = new Scanner(new File(path));
+				ArrayList<Integer> lAux = new ArrayList<Integer>();
+				int infNeed = -1;
+				while(scanner.hasNextLine()){
+					int aux = scanner.nextInt();
+					if(infNeed != aux){
+						if(infNeed != -1){
+							ResultList.add(new Result(infNeed, lAux));
+							lAux.clear();;
+						}
+						infNeed = aux;
+						lAux.add(scanner.nextInt());
+					}else{
+						lAux.add(scanner.nextInt());
+					}
+				}
+				ResultList.add(new Result(infNeed, lAux));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	/**
@@ -48,10 +68,6 @@ public class Parser {
 	 */
 	public ArrayList<Qrel> getQrelList() {
 		return QrelList;
-	}
-	
-	public Qrel[] getQrelArray() {
-		return (Qrel[]) QrelList.toArray();
 	}
 	
 	public ArrayList<Result> getResultList(){
@@ -67,6 +83,12 @@ public class Parser {
 		ArrayList<Qrel> l = p.getQrelList();
 		for(int i=0; i<l.size(); i++){
 			System.out.println(l.get(i));
+		}
+		System.out.println("\n\n");
+		p.startResult("datos/results.txt");
+		ArrayList<Result> l2 = p.getResultList();
+		for(int i=0; i<l2.size(); i++){
+			System.out.println(l2.get(i));
 		}
 	}
 	
