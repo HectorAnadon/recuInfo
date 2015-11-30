@@ -50,6 +50,10 @@ public class Parser {
 		return QrelList;
 	}
 	
+	public Qrel[] getQrelArray() {
+		return (Qrel[]) QrelList.toArray();
+	}
+	
 	public ArrayList<Result> getResultList(){
 		return ResultList;
 	}
