@@ -8,15 +8,27 @@ import java.util.Scanner;
 public class Parser {
 	
 	private Scanner scanner;
-	private ArrayList<Qrel> list;
+	private ArrayList<Qrel> QrelList;
+	private ArrayList<Result> ResultList;
 	
 	/**
 	 * Class constructor
 	 */
-	public Parser (String path) {
+	public Parser() {
+			QrelList = new ArrayList<Qrel>();
+			ResultList = new ArrayList<Result>();
+	}
+	
+	/**
+	 * Pre: ---
+	 * Post: Add elements of the file 'path' to the list
+	 */
+	public void startQrel (String path) {
 		try {
 			scanner = new Scanner(new File(path));
-			list = new ArrayList<Qrel>();
+			while(scanner.hasNextLine()){
+				QrelList.add(new Qrel(scanner.nextInt(), scanner.nextInt(), scanner.nextInt() == 1));
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -24,16 +36,34 @@ public class Parser {
 	
 	/**
 	 * Pre: ---
-	 * Post: Returns an ArrayList of Qrel objects.
+	 * Post: Add elements of the file 'path' to the list
 	 */
-	public void start() {
-		while(scanner.hasNextLine()){
-				list.add(new Qrel(scanner.nextInt(), scanner.nextInt(), scanner.nextInt() == 1));
-		}
+	public void startResult (String path) {
+		
 	}
 	
-	public ArrayList<Qrel> getList() {
-		return list;
+	/**
+	 * Pre: ---
+	 * Post: Returns an ArrayList of Qrel objects.
+	 */
+	public ArrayList<Qrel> getQrelList() {
+		return QrelList;
+	}
+	
+	public ArrayList<Result> getResultList(){
+		return ResultList;
+	}
+	
+	/**
+	 * Probe
+	 */
+	public static void main (String[] a) {
+		Parser p = new Parser();
+		p.startQrel("datos/qrels.txt");
+		ArrayList<Qrel> l = p.getQrelList();
+		for(int i=0; i<l.size(); i++){
+			System.out.println(l.get(i));
+		}
 	}
 	
 }
