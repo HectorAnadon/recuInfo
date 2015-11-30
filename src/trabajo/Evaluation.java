@@ -9,32 +9,53 @@ public class Evaluation {
 	public double recall = 0;
 	
 	public static void main(String[] args) {
-		ArrayList<Integer> je = new ArrayList<Integer>();
-		je.add(1);
-		je.add(2);
-		System.out.println(je.contains(1));
+		Parser p = new Parser();
+		p.startQrel("practica3/qrels.txt");
+		p.startResult("practica3/results.txt");
+		ArrayList<Qrel> qrel = p.getQrelList();
+		ArrayList<Result> results = p.getResultList();
+		int idQuery = 2;
+		System.out.println(precision(qrel,results,idQuery));
+		System.out.println(recall(qrel,results,idQuery));
 		
 	}
 	
-	public double precision(Qrel[] qrel, Result[] results, int idQuery) {
-		int relevants = 0;
-		for (int i = 0; i < qrel.length; i++) {
-			if (qrel[i].isRelevance() && qrel[i].getDoc()==idQuery 
-					&& selected(results, qrel[i].getDoc(), idQuery)){
+	public static double precision(ArrayList<Qrel> qrel, ArrayList<Result> results, int idQuery) {
+		double relevants = 0;
+		for (int i = 0; i < qrel.size(); i++) {
+			if (qrel.get(i).isRelevance() && qrel.get(i).getQuery()==idQuery 
+					&& selected(results, qrel.get(i).getDoc(), idQuery)){
 				relevants++;
 			}
 		}
-		return relevants/results.length;
+		return relevants/getResult(results, idQuery).getDocs().size();
 	}
 
-	public double recall(Qrel[] qrel, int[] results) {
-		int relevants = 0;
-		for (int i = 0; i < qrel.length; i++) {
-			if (qrel[i].isRelevance()){
+	private static Result getResult(ArrayList<Result> results, int idQuery) {
+		int i = 0;
+		while (idQuery != results.get(i).getQuery()){
+			i++;
+		}
+		return results.get(i);
+	}
+
+	public static double recall(ArrayList<Qrel> qrel, ArrayList<Result> results, int idQuery) {
+		double relevants = 0;
+		for (int i = 0; i < qrel.size(); i++) {
+			if (qrel.get(i).isRelevance()  && qrel.get(i).getQuery()==idQuery ){
 				relevants++;
 			}
 		}
-		return relevants/relevants;
+		int relevantSelected = 0;
+		for (int i = 0; i < qrel.size(); i++) {
+			if (qrel.get(i).isRelevance() && qrel.get(i).getQuery()==idQuery 
+					&& selected(results, qrel.get(i).getDoc(), idQuery)){
+				relevantSelected++;
+			}
+		}
+		System.out.println(relevantSelected);
+		System.out.println(relevants);
+		return relevantSelected/relevants;
 	}
 	
 	public double f1(double precision, double recall) {
@@ -44,11 +65,11 @@ public class Evaluation {
 	//public double precisionK (double )
 
 	//Pre: query exists
-	private static boolean selected(Result[] results, int doc, int idQuery) {
+	private static boolean selected(ArrayList<Result> results, int doc, int idQuery) {
 		int i = 0;
-		while (idQuery != results[i].getQuery()){
+		while (idQuery != results.get(i).getQuery()){
 			i++;
 		}
-		return results[i].contains(doc);
+		return results.get(i).contains(doc);
 	}
 }
