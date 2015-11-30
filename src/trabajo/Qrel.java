@@ -36,5 +36,8 @@ public class Qrel {
 		this.relevance = relevance;
 	}
 	
+	public String toString() {
+		return "query: " + query + ", doc: " + doc + ", relevance: " + relevance;
+	}
 	
 }
