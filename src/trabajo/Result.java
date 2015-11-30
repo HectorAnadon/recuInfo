@@ -34,4 +34,9 @@ public class Result {
 	public boolean contains(int doc) {
 		return docs.contains(doc);
 	}
+	
+	public String toString(){
+		return "query: " + query + "; docs: " + docs.toString();
+	}
+	
 }
