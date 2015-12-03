@@ -72,25 +72,19 @@ public class IndexFiles {
                  + "in INDEX_PATH that can be searched with SearchFiles";
     String indexPath = "indexCrawler";
     String docsPath = "tmp";
-    boolean temporal = true;	//TEMPORAAAAAAAAAL
-    ParserDump.start("Datos/dump");
+    String dump = "Datos/dump";
+    boolean temporal = true;
+    
     for(int i=0;i<args.length;i++) {
       if ("-index".equals(args[i])) {
         indexPath = args[i+1];
         i++;
-      } else if ("-docs".equals(args[i])) {
-        docsPath = args[i+1];
-        i++;
-      } else if ("-temp".equals(args[i])) {
-    	temporal = true;
+      } else if ("-dump".equals(args[i])) {
+        dump = args[i+1];
         i++;
       }
     }
-
-    if (docsPath == null) {
-      System.err.println("Usage: " + usage);
-      System.exit(1);
-    }
+    ParserDump.start("Datos/dump");
 
     final File docDir = new File(docsPath);
     if (!docDir.exists() || !docDir.canRead()) {

@@ -1,0 +1,74 @@
+Query = "musica sonido autor Javier"
+Solr
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10598.xml
+http://hendrix-http.cps.unizar.es/recinfo/categoria3/oai_zaguan.unizar.es_5624.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10542.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10484.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10564.xml
+
+Sistema tradicional
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria4\categoria4_2\oai_zaguan.unizar.es_9286.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_14844.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria4\categoria4_2\oai_zaguan.unizar.es_8993.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria4\categoria4_1\categoria4_1_1\oai_zaguan.unizar.es_6886.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria4\categoria4_1\categoria4_1_1\oai_zaguan.unizar.es_6613.xml
+
+Query = "Guerra Independencia (1808-1814) España"
+Solr
+http://hendrix-http.cps.unizar.es/recinfo/categoria5/oai_zaguan.unizar.es_12746.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10490.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10434.xml
+http://hendrix-http.cps.unizar.es/recinfo/categoria1/oai_zaguan.unizar.es_1904.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10484.xml
+
+Sistema tradicional
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_12746.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_31183.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria4\categoria4_1\categoria4_1_1\categoria4_1_1_1\oai_zaguan.unizar.es_7398.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_12297.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_12788.xml
+
+Query = "energía renovable 2010 2015"
+Solr
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10577.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10487.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10461.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10557.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10536.xml
+
+Sistema tradicional
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_31462.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_30664.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_30680.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_31596.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_30665.xml
+
+Query = "videojuegos diseño personajes últimos 5 años"
+Solr
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10580.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10524.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10462.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10563.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10535.xml
+
+Sistema tradicional
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria4\categoria4_1\oai_zaguan.unizar.es_6493.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_12373.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria4\categoria4_2\oai_zaguan.unizar.es_9629.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_12991.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_31179.xml
+
+Query = "construcciones España elementos decorativos Edad Media gótica conservación óptimo"
+Solr
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10580.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10519.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10586.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10466.xml
+http://hendrix-http.cps.unizar.es/recinfo/oai_zaguan.unizar.es_10585.xml
+
+Sistema tradicional
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_16325.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_31153.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_16209.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria5\oai_zaguan.unizar.es_12088.xml
+http:\\hendrix-http.cps.unizar.es\recinfo\categoria4\categoria4_2\oai_zaguan.unizar.es_9076.xml
