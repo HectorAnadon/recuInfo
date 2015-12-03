@@ -1,4 +1,4 @@
-package trabajo;
+package juicios;
 
 public class Qrel {
 
