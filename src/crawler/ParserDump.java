@@ -30,7 +30,9 @@ public class ParserDump {
 					word = scanner.nextLine();
 					while (scanner.hasNextLine() && !word.contains("Recno::")) {
 						//System.out.printf("%s", word);
-						formatter.format("%s\n", word);
+						if (word.length() > 0 && word.substring(0,1).equals("<")) {
+							formatter.format("%s\n", word);
+						}
 						if (scanner.hasNextLine()) {
 							word = scanner.nextLine();
 						}
