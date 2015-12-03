@@ -19,7 +19,6 @@ public class ParserDump {
 			String word;
 			
 			while (scanner.hasNext()) {
-				boolean parar = false;
 				word = scanner.next();
 				if (word.equals("URL::")){
 					word = scanner.next();
@@ -29,12 +28,11 @@ public class ParserDump {
 						word = scanner.nextLine();
 					}
 					word = scanner.nextLine();
-					while (!parar && !word.contains("Recno::")) {
+					while (scanner.hasNextLine() && !word.contains("Recno::")) {
 						//System.out.printf("%s", word);
 						formatter.format("%s\n", word);
 						if (scanner.hasNextLine()) {
 							word = scanner.nextLine();
-							parar = true;
 						}
 					}
 					formatter.close();
