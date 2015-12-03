@@ -7,13 +7,11 @@ import java.util.Scanner;
 
 public class ParserDump {
 
-	private Scanner scanner;
-	private Formatter formatter;
+	private static Scanner scanner;
+	private static Formatter formatter;
 	
-	public ParserDump () {
-	}
 	
-	public void start (String path){
+	public static void start (String path){
 		try {
 			scanner = new Scanner(new File(path), "UTF-8");
 			String word;
@@ -47,6 +45,6 @@ public class ParserDump {
 	
 	public static void main (String[] a) {
 		ParserDump pd = new ParserDump();
-		pd.start("datos/dump");
+		pd.start("Datos/dump");
 	}
 }

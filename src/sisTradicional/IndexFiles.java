@@ -36,6 +36,8 @@ import org.apache.lucene.util.Version;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import crawler.ParserDump;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -68,14 +70,19 @@ public class IndexFiles {
                  + " [-index INDEX_PATH] [-docs DOCS_PATH] \n\n"
                  + "This indexes the documents in DOCS_PATH, creating a Lucene index"
                  + "in INDEX_PATH that can be searched with SearchFiles";
-    String indexPath = "index";
-    String docsPath = null;
+    String indexPath = "indexCrawler";
+    String docsPath = "tmp";
+    boolean temporal = true;	//TEMPORAAAAAAAAAL
+    ParserDump.start("Datos/dump");
     for(int i=0;i<args.length;i++) {
       if ("-index".equals(args[i])) {
         indexPath = args[i+1];
         i++;
-      } else if ("-docs".equals(args[i])) {		//TODO: tranform the dumps in docs
+      } else if ("-docs".equals(args[i])) {
         docsPath = args[i+1];
+        i++;
+      } else if ("-temp".equals(args[i])) {
+    	temporal = true;
         i++;
       }
     }
@@ -104,7 +111,7 @@ public class IndexFiles {
 
 
       IndexWriter writer = new IndexWriter(dir, iwc);
-      indexDocs(writer, docDir);
+      indexDocs(writer, docDir, temporal);
 
 
       writer.close();
@@ -133,7 +140,7 @@ public class IndexFiles {
    * @param file The file to index, or the directory to recurse into to find files to index
    * @throws IOException If there is a low-level I/O error
    */
-  static void indexDocs(IndexWriter writer, File file)
+  static void indexDocs(IndexWriter writer, File file, boolean temporal)
     throws IOException {
     // do not try to index files that cannot be read
     if (file.canRead()) {
@@ -142,7 +149,7 @@ public class IndexFiles {
         // an IO error could occur
         if (files != null) {
           for (int i = 0; i < files.length; i++) {
-            indexDocs(writer, new File(file, files[i]));
+            indexDocs(writer, new File(file, files[i]), temporal);
           }
         }
       } else {
@@ -188,11 +195,20 @@ public class IndexFiles {
         	DocumentBuilderFactory DBF = DocumentBuilderFactory.newInstance();
 			DocumentBuilder DB = DBF.newDocumentBuilder();
 			org.w3c.dom.Document xmlDoc = DB.parse(file);
-			doc.add(new TextField("title", xmlDoc.getElementsByTagName("dc:title").item(0).getTextContent(), Field.Store.YES));
-			doc.add(new TextField("description",xmlDoc.getElementsByTagName("dc:title").item(0).getTextContent()+ " " + xmlDoc.getElementsByTagName("dc:description").item(0).getTextContent(), Field.Store.YES));
-			doc.add(new TextField("creator", xmlDoc.getElementsByTagName("dc:creator").item(0).getTextContent(), Field.Store.YES));
-			doc.add(new TextField("date", xmlDoc.getElementsByTagName("dc:date").item(0).getTextContent(), Field.Store.YES));
-			doc.add(new TextField("publisher", xmlDoc.getElementsByTagName("dc:publisher").item(0).getTextContent(), Field.Store.YES));
+			if (xmlDoc.getElementsByTagName("dc:title").item(0) != null) {
+				doc.add(new TextField("title", xmlDoc.getElementsByTagName("dc:title").item(0).getTextContent(), Field.Store.YES));
+			}
+			if (xmlDoc.getElementsByTagName("dc:creator").item(0) != null) {
+				doc.add(new TextField("creator", xmlDoc.getElementsByTagName("dc:creator").item(0).getTextContent(), Field.Store.YES));
+			}
+			if (xmlDoc.getElementsByTagName("dc:date").item(0) != null) {
+				doc.add(new TextField("date", xmlDoc.getElementsByTagName("dc:date").item(0).getTextContent(), Field.Store.YES));
+			}
+			if (xmlDoc.getElementsByTagName("dc:publisher").item(0) != null) {
+				doc.add(new TextField("publisher", xmlDoc.getElementsByTagName("dc:publisher").item(0).getTextContent(), Field.Store.YES));
+			}
+			
+			
           } catch (ParserConfigurationException e) {
 
 			e.printStackTrace();
@@ -216,6 +232,9 @@ public class IndexFiles {
           
         } finally {
           fis.close();
+          if (temporal) {
+        	  file.delete();
+          }
         }
       }
     }

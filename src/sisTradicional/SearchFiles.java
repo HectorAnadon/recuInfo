@@ -72,8 +72,8 @@ public class SearchFiles {
       System.exit(0);
     }
 
-    String index = "index";
-    String field = "description";
+    String index = "indexCrawler";
+    String field = "contents";
     String infoNeeds = "Datos/InfoNeeds/necesidadesInformacionElegidas.xml";
     String output = "Datos/InfoNeeds/equipo.txt";
     
@@ -233,9 +233,9 @@ private static void findNames(BooleanQuery b, String line) {
         writer.printf("%s\t%s\n",id, path.getFileName());
         String modified = doc.get("modified");
         if (path != null) {
-          System.out.println((i+1) + ". " + path);
-          System.out.println("  modified: " + new Date(Long.parseLong(modified)).toString());
-          System.out.println(searcher.explain(query, hits[i].doc));
+          //System.out.println((i+1) + ". " + path);
+          //System.out.println("  modified: " + new Date(Long.parseLong(modified)).toString());
+          //System.out.println(searcher.explain(query, hits[i].doc));
         } else {
           System.out.println((i+1) + ". " + "No path for this document");
         }
