@@ -172,7 +172,7 @@ public class IndexFiles {
           // field that is indexed (i.e. searchable), but don't tokenize 
           // the field into separate words and don't index term frequency
           // or positional information:
-          Field pathField = new StringField("path", file.getPath(), Field.Store.YES);
+          Field pathField = new StringField("path", file.getName(), Field.Store.YES);
           doc.add(pathField);
           
           //TODO: add url
@@ -220,7 +220,7 @@ public class IndexFiles {
           
           if (writer.getConfig().getOpenMode() == OpenMode.CREATE) {
             // New index, so we just add the document (no old document can be there):
-            System.out.println("adding " + file);
+            System.out.println("adding " + file.getName());
             writer.addDocument(doc);
           } else {
             // Existing index (an old copy of this document may have been indexed) so 
