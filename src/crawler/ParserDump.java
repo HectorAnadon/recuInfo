@@ -22,17 +22,22 @@ public class ParserDump {
 					word = scanner.next();
 					formatter = new Formatter("tmp/" + word.replace('/', '\\'));
 					word = scanner.nextLine();
-					while (!word.contains("Content:")) {
+					while (!word.contains("<?xml version=") && !word.equals("<html>")) {
 						word = scanner.nextLine();
 					}
-					word = scanner.nextLine();
-					while (scanner.hasNextLine() && !word.contains("Recno::")) {
-						//System.out.printf("%s", word);
-						if (word.length() > 0 && word.substring(0,1).equals("<")) {
-							formatter.format("%s\n", word);
-						}
-						if (scanner.hasNextLine()) {
+					formatter.format("%s", word);
+					if (!word.contains("</oai_dc:dc>") && !word.contains("</html>")){
+						formatter.format("\n");
+						boolean stop = false;
+						while (!stop) {
+							//System.out.printf("%s", word);
 							word = scanner.nextLine();
+							formatter.format("%s", word);
+							if (!scanner.hasNextLine() || word.contains("</oai_dc:dc>") || word.contains("</html>") || word.equals("</html>")) {
+								stop = true;
+							}else{
+								formatter.format("\n");
+							}
 						}
 					}
 					formatter.close();
@@ -45,6 +50,8 @@ public class ParserDump {
 	
 	public static void main (String[] a) {
 		ParserDump pd = new ParserDump();
+		System.out.println("Empezando...");
 		pd.start("Datos/dump");
+		System.out.println("FIN");
 	}
 }
