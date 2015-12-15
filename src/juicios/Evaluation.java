@@ -20,7 +20,9 @@ public class Evaluation {
 		System.out.println(precisionK(10,qrel,results,idQuery));
 		System.out.println(averagePrecision(qrel,results,idQuery));
 		System.out.println("recall_percision");
-		recallPrecision(qrel, results, idQuery);
+		ArrayList<Tuple<Double,Double>> recallPrecision = recallPrecision(qrel, results, idQuery);
+		System.out.println("interpolate recall_percision");
+		interpolateRecallPrecision(recallPrecision);
 		
 	}
 	
@@ -65,19 +67,38 @@ public class Evaluation {
 		return precK/relevantsSelected;
 	}
 	
-	public static void recallPrecision(ArrayList<Qrel> qrel, ArrayList<Result> results, int idQuery) {
+	public static ArrayList<Tuple<Double,Double>> recallPrecision(ArrayList<Qrel> qrel, ArrayList<Result> results, int idQuery) {
 		Result result = getResult(results, idQuery);
 		ArrayList<Result> results2 = new ArrayList<Result>();
 		Result result2 = new Result(idQuery,new ArrayList<Integer>());
+		ArrayList<Tuple<Double,Double>> tuples = new ArrayList<Tuple<Double,Double>>();
 		for (int i = 0; i < result.getDocs().size(); i++) {
 			int doc = result.getDocs().get(i);
 			result2.docs.add(doc);
 			if (isRelevant(doc, qrel, idQuery)){
 				results2.add(result2);
-				System.out.println(recall(qrel,results2,idQuery)
-						+ " " + precision(qrel,results2,idQuery));
+				double recall = recall(qrel,results2,idQuery);
+				double precision = precision(qrel,results2,idQuery);
+				tuples.add(new Tuple(recall,precision));
+				System.out.println(recall
+						+ " " + precision);
 				results2.clear();
 			}
+		}
+		return tuples;
+	}
+	
+	public static void interpolateRecallPrecision(ArrayList<Tuple<Double,Double>> tuples) {
+		for (double i = 0; i<=1; i = i + 0.1) {
+			double max = 0;
+			for (int j = 0; j < tuples.size(); j++) {
+				if (i <= tuples.get(j).x) {
+					if (max < tuples.get(j).y) {
+						max = tuples.get(j).y;
+					}
+				}
+			}
+			System.out.printf("%.3f %.3f\n", i , max);
 		}
 	}
 
