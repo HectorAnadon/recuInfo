@@ -25,38 +25,14 @@ public class Evaluation {
 	}
 	
 	public static double precision(ArrayList<Qrel> qrel, ArrayList<Result> results, int idQuery) {
-		double relevants = 0;
-		for (int i = 0; i < qrel.size(); i++) {
-			if (qrel.get(i).isRelevance() && qrel.get(i).getQuery()==idQuery 
-					&& selected(results, qrel.get(i).getDoc(), idQuery)){
-				relevants++;
-			}
-		}
-		return relevants/getResult(results, idQuery).getDocs().size();
+		double relevantsSelected = numRelevantsSelected(qrel, results, idQuery);
+		return relevantsSelected/getResult(results, idQuery).getDocs().size();
 	}
 
-	private static Result getResult(ArrayList<Result> results, int idQuery) {
-		int i = 0;
-		while (idQuery != results.get(i).getQuery()){
-			i++;
-		}
-		return results.get(i);
-	}
 
 	public static double recall(ArrayList<Qrel> qrel, ArrayList<Result> results, int idQuery) {
-		double relevants = 0;
-		for (int i = 0; i < qrel.size(); i++) {
-			if (qrel.get(i).isRelevance()  && qrel.get(i).getQuery()==idQuery ){
-				relevants++;
-			}
-		}
-		int relevantSelected = 0;
-		for (int i = 0; i < qrel.size(); i++) {
-			if (qrel.get(i).isRelevance() && qrel.get(i).getQuery()==idQuery 
-					&& selected(results, qrel.get(i).getDoc(), idQuery)){
-				relevantSelected++;
-			}
-		}
+		double relevants = numRelevants(qrel, idQuery);
+		double relevantSelected = numRelevantsSelected(qrel, results, idQuery);
 		return relevantSelected/relevants;
 	}
 	
@@ -78,12 +54,7 @@ public class Evaluation {
 	
 	public static double averagePrecision (ArrayList<Qrel> qrel, ArrayList<Result> results, int idQuery) {
 		double precK = 0;
-		double relevants = 0;
-		for (int i = 0; i < qrel.size(); i++) {
-			if (qrel.get(i).isRelevance()  && qrel.get(i).getQuery()==idQuery ){
-				relevants++;
-			}
-		}
+		double relevantsSelected = numRelevantsSelected(qrel, results, idQuery);
 		Result result = getResult(results, idQuery);
 		for (int i = 0; i < result.getDocs().size(); i++) {
 			int doc = result.getDocs().get(i);
@@ -91,30 +62,7 @@ public class Evaluation {
 				precK = precK + precisionK(i+1, qrel, results, idQuery);
 			}
 		}
-		return precK/relevants;
-	}
-
-	private static boolean isRelevant(int doc, ArrayList<Qrel> qrel, int idQuery) {
-		for (int i = 0; i < qrel.size(); i++) {
-			Qrel q = qrel.get(i);
-			if (q.getQuery() == idQuery && q.getDoc() == doc) {
-				if (q.isRelevance()) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}
-		return false;
-	}
-
-	//Pre: query exists
-	private static boolean selected(ArrayList<Result> results, int doc, int idQuery) {
-		int i = 0;
-		while (idQuery != results.get(i).getQuery()){
-			i++;
-		}
-		return results.get(i).contains(doc);
+		return precK/relevantsSelected;
 	}
 	
 	public static void recallPrecision(ArrayList<Qrel> qrel, ArrayList<Result> results, int idQuery) {
@@ -132,4 +80,70 @@ public class Evaluation {
 			}
 		}
 	}
+
+	/*
+	 * Given a doc, checks if it is relevant for query idQuery
+	 */
+	private static boolean isRelevant(int doc, ArrayList<Qrel> qrel, int idQuery) {
+		for (int i = 0; i < qrel.size(); i++) {
+			Qrel q = qrel.get(i);
+			if (q.getQuery() == idQuery && q.getDoc() == doc) {
+				if (q.isRelevance()) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/*
+	 *  @return Result given query
+	 */
+	private static Result getResult(ArrayList<Result> results, int idQuery) {
+		int i = 0;
+		while (idQuery != results.get(i).getQuery()){
+			i++;
+		}
+		return results.get(i);
+	}
+
+	//Pre: query exists
+	//@return true if doc is contained in result
+	private static boolean selected(ArrayList<Result> results, int doc, int idQuery) {
+		int i = 0;
+		while (idQuery != results.get(i).getQuery()){
+			i++;
+		}
+		return results.get(i).contains(doc);
+	}
+	
+	/*
+	 * Return number of relevant documents in collection of idQuery
+	 */
+	private static double numRelevants(ArrayList<Qrel> qrel, int idQuery) {
+		double relevants = 0;
+		for (int i = 0; i < qrel.size(); i++) {
+			if (qrel.get(i).isRelevance()  && qrel.get(i).getQuery()==idQuery ){
+				relevants++;
+			}
+		}
+		return relevants;
+	}
+
+	/*
+	 * Return number of relevant documents given in query idQuery
+	 */
+	private static double numRelevantsSelected(ArrayList<Qrel> qrel, ArrayList<Result> results, int idQuery) {
+		double relevants = 0;
+		for (int i = 0; i < qrel.size(); i++) {
+			if (qrel.get(i).isRelevance() && qrel.get(i).getQuery()==idQuery 
+					&& selected(results, qrel.get(i).getDoc(), idQuery)){
+				relevants++;
+			}
+		}
+		return relevants;
+	}
+	
 }
