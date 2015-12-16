@@ -11,19 +11,53 @@ public class Evaluation {
 		p.startResult("practica3/results.txt");
 		ArrayList<Qrel> qrel = p.getQrelList();
 		ArrayList<Result> results = p.getResultList();
-		int idQuery = 2;
-		double precision = precision(qrel,results,idQuery);
-		System.out.println(precision);
-		double recall = recall(qrel,results,idQuery);
-		System.out.println(recall);
-		System.out.println(f1(precision, recall));
-		System.out.println(precisionK(10,qrel,results,idQuery));
-		System.out.println(averagePrecision(qrel,results,idQuery));
-		System.out.println("recall_percision");
-		ArrayList<Tuple<Double,Double>> recallPrecision = recallPrecision(qrel, results, idQuery);
+		double precisionTotal = 0;
+		double recallTotal = 0;
+		double prec10Total = 0;
+		double map = 0;
+		ArrayList<Tuple<Double,Double>> interpolateTotal = null;
+		int[] idQuerys = {1,2};
+		for (int i = 0; i< idQuerys.length; i++){
+			System.out.println("Query: " + idQuerys[i]);
+			double precision = precision(qrel,results,idQuerys[i]);
+			precisionTotal+=precision;
+			System.out.println("Precision: " + precision);
+			double recall = recall(qrel,results,idQuerys[i]);
+			recallTotal+=recall;
+			System.out.println("Recall: " + recall);
+			System.out.println("F1: " + f1(precision, recall));
+			double prec10 = precisionK(10,qrel,results,idQuerys[i]);
+			prec10Total+= prec10;
+			System.out.println("Precision@10: " + prec10);
+			double averagePrecision = averagePrecision(qrel,results,idQuerys[i]);
+			map+=averagePrecision;
+			System.out.println("Average Precision: " + averagePrecision);
+			System.out.println("recall_percision");
+			ArrayList<Tuple<Double,Double>> recallPrecision = recallPrecision(qrel, results, idQuerys[i]);
+			System.out.println("interpolate recall_percision");
+			ArrayList<Tuple<Double,Double>> interpolate = interpolateRecallPrecision(recallPrecision);
+			if (interpolateTotal == null) {
+				interpolateTotal = interpolate;
+			} else {
+				for (int j=0; j<interpolateTotal.size(); j++) {
+					/*if (interpolateTotal.get(j).y== 0 || interpolate.get(j).y==0){
+						interpolateTotal.get(j).y = 0.0;
+					} else {*/
+						interpolateTotal.get(j).y+=interpolate.get(j).y;
+					//}
+				}
+			}
+		}
+		System.out.println("Total");
+		System.out.println("Precision: " + precisionTotal/idQuerys.length);
+		System.out.println("Recall: " + recallTotal/idQuerys.length);
+		System.out.println("F1: " + f1(precisionTotal/idQuerys.length, recallTotal/idQuerys.length));
+		System.out.println("Precision@10: " + prec10Total/idQuerys.length);
+		System.out.println("Map: " + map/idQuerys.length);
 		System.out.println("interpolate recall_percision");
-		interpolateRecallPrecision(recallPrecision);
-		
+		for (int j=0; j<interpolateTotal.size(); j++) {
+			System.out.printf("%.3f %.3f\n", interpolateTotal.get(j).x , interpolateTotal.get(j).y/idQuerys.length);
+		}
 	}
 	
 	public static double precision(ArrayList<Qrel> qrel, ArrayList<Result> results, int idQuery) {
@@ -88,7 +122,8 @@ public class Evaluation {
 		return tuples;
 	}
 	
-	public static void interpolateRecallPrecision(ArrayList<Tuple<Double,Double>> tuples) {
+	public static ArrayList<Tuple<Double,Double>> interpolateRecallPrecision(ArrayList<Tuple<Double,Double>> tuples) {
+		ArrayList<Tuple<Double,Double>> result = new ArrayList<Tuple<Double,Double>>();
 		for (double i = 0; i<=1; i = i + 0.1) {
 			double max = 0;
 			for (int j = 0; j < tuples.size(); j++) {
@@ -99,7 +134,9 @@ public class Evaluation {
 				}
 			}
 			System.out.printf("%.3f %.3f\n", i , max);
+			result.add(new Tuple(i,max));
 		}
+		return result;
 	}
 
 	/*
