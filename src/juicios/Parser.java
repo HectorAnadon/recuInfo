@@ -27,7 +27,7 @@ public class Parser {
 		try {
 			scanner = new Scanner(new File(path));
 			while(scanner.hasNextLine()){
-				QrelList.add(new Qrel(scanner.nextInt(), scanner.nextInt(), scanner.nextInt() == 1));
+				QrelList.add(new Qrel(scanner.next(), scanner.next(), scanner.nextInt() == 1));
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -41,19 +41,19 @@ public class Parser {
 	public void startResult (String path) {
 		  try {
 				scanner = new Scanner(new File(path));
-				ArrayList<Integer> lAux = new ArrayList<Integer>();
-				int infNeed = -1;
+				ArrayList<String> lAux = new ArrayList<String>();
+				String infNeed = "ERROR";
 				while(scanner.hasNextLine()){
-					int aux = scanner.nextInt();
-					if(infNeed != aux){
-						if(infNeed != -1){
-							ResultList.add(new Result(infNeed, (ArrayList<Integer>)lAux.clone()));
+					String aux = scanner.next();
+					if(!infNeed.equals(aux)){
+						if(!infNeed.equals("ERROR")){
+							ResultList.add(new Result(infNeed, (ArrayList<String>)lAux.clone()));
 							lAux.clear();;
 						}
 						infNeed = aux;
-						lAux.add(scanner.nextInt());
+						lAux.add(scanner.next());
 					}else{
-						lAux.add(scanner.nextInt());
+						lAux.add(scanner.next());
 					}
 				}
 				ResultList.add(new Result(infNeed, lAux));
