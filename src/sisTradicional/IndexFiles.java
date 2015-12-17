@@ -70,21 +70,21 @@ public class IndexFiles {
                  + " [-index INDEX_PATH] [-docs DOCS_PATH] \n\n"
                  + "This indexes the documents in DOCS_PATH, creating a Lucene index"
                  + "in INDEX_PATH that can be searched with SearchFiles";
-    String indexPath = "indexCrawler";
-    String docsPath = "tmp";
-    String dump = "Datos/dump";
-    boolean temporal = true;
+    String indexPath = "index";
+    String docsPath = "Datos/recordsdc";
+    //String dump = "Datos/dump";
+    boolean temporal = false;
     
     for(int i=0;i<args.length;i++) {
       if ("-index".equals(args[i])) {
         indexPath = args[i+1];
         i++;
       } else if ("-dump".equals(args[i])) {
-        dump = args[i+1];
+        //dump = args[i+1];
         i++;
       }
     }
-    ParserDump.start("Datos/dump");
+    //ParserDump.start(dump);
 
     final File docDir = new File(docsPath);
     if (!docDir.exists() || !docDir.canRead()) {

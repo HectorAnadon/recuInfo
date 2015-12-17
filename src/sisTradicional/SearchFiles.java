@@ -72,10 +72,10 @@ public class SearchFiles {
       System.exit(0);
     }
 
-    String index = "indexCrawler";
+    String index = "index";
     String field = "contents";
     String infoNeeds = "Datos/InfoNeeds/necesidadesInformacionElegidas.xml";
-    String output = "Datos/InfoNeeds/equipo.txt";
+    String output = "practica3/equipo12.txt";
     
     for(int i = 0;i < args.length;i++) {
       if ("-index".equals(args[i])) {
@@ -225,7 +225,7 @@ private static void findNames(BooleanQuery b, String line) {
 
     int start = 0;
         
-    for (int i = start; i < numTotalHits; i++) {
+    for (int i = start; i < 50; i++) {
 
         Document doc = searcher.doc(hits[i].doc);
         Path path = Paths.get(doc.get("path"));
