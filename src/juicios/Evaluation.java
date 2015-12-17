@@ -21,17 +21,17 @@ public class Evaluation {
 			System.out.println("Query: " + idQuerys[i]);
 			double precision = precision(qrel,results,idQuerys[i]);
 			precisionTotal+=precision;
-			System.out.println("Precision: " + precision);
+			System.out.printf("Precision: %.3f\n" , precision);
 			double recall = recall(qrel,results,idQuerys[i]);
 			recallTotal+=recall;
-			System.out.println("Recall: " + recall);
-			System.out.println("F1: " + f1(precision, recall));
+			System.out.printf("Recall: %.3f\n" , recall);
+			System.out.printf("F1: %.3f\n" , f1(precision, recall));
 			double prec10 = precisionK(10,qrel,results,idQuerys[i]);
 			prec10Total+= prec10;
-			System.out.println("Precision@10: " + prec10);
+			System.out.printf("Precision@10: %.3f\n" , prec10);
 			double averagePrecision = averagePrecision(qrel,results,idQuerys[i]);
 			map+=averagePrecision;
-			System.out.println("Average Precision: " + averagePrecision);
+			System.out.printf("Average Precision: %.3f\n" , averagePrecision);
 			System.out.println("recall_percision");
 			ArrayList<Tuple<Double,Double>> recallPrecision = recallPrecision(qrel, results, idQuerys[i]);
 			System.out.println("interpolate recall_percision");
@@ -45,11 +45,11 @@ public class Evaluation {
 			}
 		}
 		System.out.println("Total");
-		System.out.println("Precision: " + precisionTotal/idQuerys.length);
-		System.out.println("Recall: " + recallTotal/idQuerys.length);
-		System.out.println("F1: " + f1(precisionTotal/idQuerys.length, recallTotal/idQuerys.length));
-		System.out.println("Precision@10: " + prec10Total/idQuerys.length);
-		System.out.println("Map: " + map/idQuerys.length);
+		System.out.printf("Precision: %.3f\n" , precisionTotal/idQuerys.length);
+		System.out.printf("Recall: %.3f\n" , recallTotal/idQuerys.length);
+		System.out.printf("F1: %.3f\n" , f1(precisionTotal/idQuerys.length, recallTotal/idQuerys.length));
+		System.out.printf("Precision@10: %.3f\n" , prec10Total/idQuerys.length);
+		System.out.printf("Map: %.3f\n" , map/idQuerys.length);
 		System.out.println("interpolate recall_percision");
 		for (int j=0; j<interpolateTotal.size(); j++) {
 			System.out.printf("%.3f %.3f\n", interpolateTotal.get(j).x , interpolateTotal.get(j).y/idQuerys.length);
@@ -110,8 +110,7 @@ public class Evaluation {
 				double recall = recall(qrel,results2,idQuery);
 				double precision = precision(qrel,results2,idQuery);
 				tuples.add(new Tuple(recall,precision));
-				System.out.println(recall
-						+ " " + precision);
+				System.out.printf("%.3f %.3f\n", recall , precision);
 				results2.clear();
 			}
 		}
