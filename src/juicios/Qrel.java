@@ -2,33 +2,33 @@ package juicios;
 
 public class Qrel {
 
-	private int query;
-	private int doc;
+	private String query;
+	private String doc;
 	private boolean relevance;
 	
 	public Qrel (int query, int doc, boolean relevance) {
-		this.query = query;
-		this.doc = doc;
+		this.query = String.valueOf(query);
+		this.doc = String.valueOf(doc);
 		this.relevance = relevance;
 	}
 
-	public int getQuery() {
+	public String getQuery() {
 		return query;
 	}
 
-	public void setQuery(int query) {
+	public void setQuery(String query) {
 		this.query = query;
 	}
 
-	public int getDoc() {
+	public String getDoc() {
 		return doc;
 	}
-
-	public void setDoc(int doc) {
+	
+	public void setDoc(String doc) {
 		this.doc = doc;
 	}
 
-	public boolean isRelevance() {
+	public boolean isRelevant() {
 		return relevance;
 	}
 
