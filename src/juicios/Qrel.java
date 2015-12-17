@@ -6,9 +6,9 @@ public class Qrel {
 	private String doc;
 	private boolean relevance;
 	
-	public Qrel (int query, int doc, boolean relevance) {
-		this.query = String.valueOf(query);
-		this.doc = String.valueOf(doc);
+	public Qrel (String query, String doc, boolean relevance) {
+		this.query = query;
+		this.doc = doc;
 		this.relevance = relevance;
 	}
 

@@ -4,34 +4,34 @@ import java.util.ArrayList;
 
 public class Result {
 
-	private int query;
-	public ArrayList<Integer> docs;
+	private String query;
+	public ArrayList<String> docs;
 	
 	/**
 	 * Constructor
 	 */
-	public Result (int query, ArrayList<Integer> docs) {
+	public Result (String query, ArrayList<String> docs) {
 		this.query = query;
 		this.docs = docs;
 	}
 	
-	public int getQuery() {
+	public String getQuery() {
 		return query;
 	}
 	
-	public void setQuery(int query) {
+	public void setQuery(String query) {
 		this.query = query;
 	}
 	
-	public ArrayList<Integer> getDocs() {
+	public ArrayList<String> getDocs() {
 		return docs;
 	}
 
-	public void setDocs(ArrayList<Integer> docs) {
+	public void setDocs(ArrayList<String> docs) {
 		this.docs = docs;
 	}
 	
-	public boolean contains(int doc) {
+	public boolean contains(String doc) {
 		return docs.contains(doc);
 	}
 	
