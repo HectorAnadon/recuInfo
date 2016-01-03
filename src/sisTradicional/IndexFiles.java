@@ -192,8 +192,13 @@ public class IndexFiles {
 			if (xmlDoc.getElementsByTagName("dc:title").item(0) != null) {
 				doc.add(new TextField("title", xmlDoc.getElementsByTagName("dc:title").item(0).getTextContent(), Field.Store.YES));
 			}
-			if (xmlDoc.getElementsByTagName("dc:creator").item(0) != null) {
-				doc.add(new TextField("creator", xmlDoc.getElementsByTagName("dc:creator").item(0).getTextContent(), Field.Store.YES));
+			NodeList creatorList = xmlDoc.getElementsByTagName("dc:creator");
+			if (creatorList.item(0) != null) {
+				String creators = creatorList.item(0).getTextContent();
+				for (int i = 1; i < creatorList.getLength(); i++){
+					creators = creators + " " + creatorList.item(i).getTextContent();
+				}
+				doc.add(new TextField("creator", creators, Field.Store.YES));
 			}
 			if (xmlDoc.getElementsByTagName("dc:date").item(0) != null) {
 				doc.add(new TextField("date", xmlDoc.getElementsByTagName("dc:date").item(0).getTextContent(), Field.Store.YES));
