@@ -1,0 +1,152 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcam: <http://purl.org/dc/dcam/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix gr12: <http://recInfo/gr12/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://purl.org/dc/terms/>
+    dcterms:modified "2012-06-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    dcterms:publisher <http://purl.org/dc/aboutdcmi#DCMI> ;
+    dcterms:title "DCMI Metadata Terms - other"@en .
+
+<http://recInfo/gr12/terms/>
+	gr12:modified "2016-1-7" ;
+	gr12:publisher <http://recInfo/gr12/about> ;
+	gr12:title "Metadata Terms" .
+
+    dcterms:Agent
+    dcterms:description "Examples of Agent include person, organization, and software agent."@en ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#Agent-001> ;
+    dcterms:issued "2008-01-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    a dcterms:AgentClass, rdfs:Class ;
+    rdfs:comment "A resource that acts or has the power to act."@en ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+    rdfs:label "Agent"@en .
+
+dcterms:AgentClass
+    dcterms:description "Examples of Agent Class include groups seen as classes, such as students, women, charities, lecturers."@en ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#AgentClass-003> ;
+    dcterms:issued "2008-01-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    dcterms:modified "2012-06-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    a rdfs:Class ;
+    rdfs:comment "A group of agents."@en ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+    rdfs:label "Agent Class"@en ;
+    rdfs:subClassOf rdfs:Class .
+
+dcterms:description
+    dcterms:description "Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource."@en ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#descriptionT-001> ;
+    dcterms:issued "2008-01-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    dcterms:modified "2008-01-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    a rdf:Property ;
+    rdfs:comment "An account of the resource."@en ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+    rdfs:label "Description"@en ;
+    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/description> .
+
+dcterms:language
+    dcterms:description "Recommended best practice is to use a controlled vocabulary such as RFC 4646 [RFC4646]."@en ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#languageT-001> ;
+    dcterms:issued "2008-01-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    dcterms:modified "2008-01-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    a rdf:Property ;
+    rdfs:comment "A language of the resource."@en ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+    rdfs:label "Language"@en ;
+    rdfs:range dcterms:LinguisticSystem ;
+    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/language> .
+
+dcterms:date
+    dcterms:description "Date may be used to express temporal information at any level of granularity.  Recommended best practice is to use an encoding scheme, such as the W3CDTF profile of ISO 8601 [W3CDTF]."@en ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#dateT-001> ;
+    dcterms:issued "2008-01-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    dcterms:modified "2008-01-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    a rdf:Property ;
+    rdfs:comment "A point or period of time associated with an event in the lifecycle of the resource."@en ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+    rdfs:label "Date"@en ;
+    rdfs:range rdfs:Literal ;
+    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/date> .
+
+dcterms:publisher
+    dcterms:description "Examples of a Publisher include a person, an organization, or a service."@en ;
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#publisherT-001> ;
+    dcterms:issued "2008-01-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    dcterms:modified "2010-10-11"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    a rdf:Property ;
+    rdfs:comment "An entity responsible for making the resource available."@en ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+    rdfs:label "Publisher"@en ;
+    rdfs:range dcterms:Agent ;
+    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/publisher> .
+
+dcterms:title
+    dcterms:hasVersion <http://dublincore.org/usage/terms/history/#titleT-002> ;
+    dcterms:issued "2008-01-14"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    dcterms:modified "2010-10-11"^^<http://www.w3.org/2001/XMLSchema#date> ;
+    a rdf:Property ;
+    rdfs:comment "A name given to the resource."@en ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+    rdfs:label "Title"@en ;
+    rdfs:range rdfs:Literal ;
+    rdfs:subPropertyOf <http://purl.org/dc/elements/1.1/title> .
+
+gr12:Document
+    dcterms:description "URI of a text document"@en ;
+    a rdfs:Class ;
+    rdfs:comment "A resource as document"@en ;
+    rdfs:label "Document"@en .
+
+gr12:TFG
+    dcterms:description "Trabajo Fin de Grado in spanish language"@en ;
+    a rdfs:Class ;
+    rdfs:comment "Document TFG"@en ;
+    rdfs:label "TFG"@en ;
+    rdfs:subClassOf gr12:Document .
+
+gr12:TFM
+    dcterms:description "Trabajo Fin de Master in spanish language"@en ;
+    a rdfs:Class ;
+    rdfs:comment "Document TFM"@en ;
+    rdfs:label "TFM"@en ;
+    rdfs:subClassOf gr12:Document .
+
+gr12:TESIS
+    dcterms:description "Tesis Doctoral in spanish language"@en ;
+    a rdfs:Class ;
+    rdfs:comment ""@en ;
+    rdfs:label "TESIS"@en ;
+    rdfs:subClassOf gr12:Document .
+
+gr12:creator
+    dcterms:description "Author of the academic document" ;
+    a rdf:Property ;
+    rdfs:label "creator"@en ;
+    rdfs:domain gr12:Document ;
+    rdfs:range rdfs:Person ;
+    rdfs:label "Name"@en .
+
+gr12:Person
+    dcterms:description "An individual human"@en ;
+    a rdfs:Class ;
+    rdfs:comment "Person is a person"@en ;
+    rdfs:label "Person"@en ;
+
+gr12:name
+    dcterms:description "A word or set of words by which a person or thing is usually known"@en ;
+    a rdf:Property ;
+    rdfs:label "Title"@en ;
+    rdfs:domain gr12:Person ;
+    rdfs:range rdfs:Literal ;
+    rdfs:label "Name"@en .
+
+gr12:surname
+    dcterms:description "The name that you share with other members of your family. In English it is the last part of your full name."@en ;
+    a rdf:Property ;
+    rdfs:label "Title"@en ;
+    rdfs:domain gr12:Person ;
+    rdfs:range rdfs:Literal ;
+    rdfs:label "Surname"@en .
