@@ -9,17 +9,23 @@ import org.semanticweb.skosapibinding.SKOSManager;
 
 public class TesauroCreator {
 	
+	SKOSDataset dataset;
+	
 	public TesauroCreator (String URIfile) {
 		SKOSManager man;
 		try {
 			man = new SKOSManager();
-			SKOSDataset dataset = man.loadDataset(URI.create(URIfile));
+			dataset = man.loadDataset(URI.create(URIfile));
 			for (SKOSConcept concept : dataset.getSKOSConcepts()) {
 			   System.out.println("Concept: " + concept.getURI());
 			}
 		} catch (SKOSCreationException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public SKOSDataset getDataSet() {
+		return dataset;
 	}
 	
 	

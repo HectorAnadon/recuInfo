@@ -164,6 +164,10 @@ public class RDFCreator {
 		
 	}
 	
+	public static void ejecutarConsultas() {
+		
+	}
+	
 	public static void main (String args[]) {
 		RDFCreator prueba = new RDFCreator();
         prueba.parser("Datos/recordsdc");
