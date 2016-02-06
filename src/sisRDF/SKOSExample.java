@@ -90,19 +90,19 @@ public class SKOSExample {
 
         /* creating a sub property of altLabel */
 
-        SKOSAnnotationProperty newAltLabel = factory.getSKOSAnnotationProperty(URI.create("http://myexample/altLable/newSubAltLabel"));
-        SKOSAltLabelProperty altLabel = factory.getSKOSAltLabelProperty();
-
-        SKOStoOWLConverter converter = new SKOStoOWLConverter();
-
-        OWLOntologyManager owlMan = man.getOWLManger();
-        OWLDataFactory owlFact = owlMan.getOWLDataFactory();
-        OWLSubAnnotationPropertyOfAxiom axiom = owlFact.getOWLSubAnnotationPropertyOfAxiom(converter.getAsOWLAnnotationProperty(newAltLabel), converter.getAsOWLAnnotationProperty(altLabel));
-        try {
-            owlMan.applyChange(new AddAxiom(converter.getAsOWLOntology(vocab), axiom));
-        } catch (OWLOntologyChangeException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+//        SKOSAnnotationProperty newAltLabel = factory.getSKOSAnnotationProperty(URI.create("http://myexample/altLable/newSubAltLabel"));
+//        SKOSAltLabelProperty altLabel = factory.getSKOSAltLabelProperty();
+//
+//        SKOStoOWLConverter converter = new SKOStoOWLConverter();
+//
+//        OWLOntologyManager owlMan = man.getOWLManger();
+//        OWLDataFactory owlFact = owlMan.getOWLDataFactory();
+//        OWLSubAnnotationPropertyOfAxiom axiom = owlFact.getOWLSubAnnotationPropertyOfAxiom(converter.getAsOWLAnnotationProperty(newAltLabel), converter.getAsOWLAnnotationProperty(altLabel));
+//        try {
+//            owlMan.applyChange(new AddAxiom(converter.getAsOWLOntology(vocab), axiom));
+//        } catch (OWLOntologyChangeException e) {
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        }
 
         /*
        * The full legal use of SKOS documantation propertiiies canno't be supported by this implmentation with the OWL API
@@ -123,18 +123,18 @@ public class SKOSExample {
         * here is an example adding a dc:creator and a rdfs:comment
         */
 
-        SKOSAnnotation anno1 = factory.getSKOSAnnotation(DublinCoreVocabulary.DATE.getURI(), "12-07-2008");
-        SKOSAnnotation anno2 = factory.getSKOSAnnotation(DublinCoreVocabulary.CREATOR.getURI(), "Simon Jupp", "en");
-        SKOSAnnotation anno3 = factory.getSKOSAnnotation(URI.create("http://my-custom-annotation.com/example"), someResource);
-        SKOSAnnotation anno4 = factory.getSKOSAnnotation(DublinCoreVocabulary.CREATOR.getURI(),  factory.getSKOSUntypedConstant("Simon Jupp", "en"));
+//        SKOSAnnotation anno1 = factory.getSKOSAnnotation(DublinCoreVocabulary.DATE.getURI(), "12-07-2008");
+//        SKOSAnnotation anno2 = factory.getSKOSAnnotation(DublinCoreVocabulary.CREATOR.getURI(), "Simon Jupp", "en");
+//        SKOSAnnotation anno3 = factory.getSKOSAnnotation(URI.create("http://my-custom-annotation.com/example"), someResource);
+//        SKOSAnnotation anno4 = factory.getSKOSAnnotation(DublinCoreVocabulary.CREATOR.getURI(),  factory.getSKOSUntypedConstant("Simon Jupp", "en"));
         // todo need to work on typed on objects
         //factory.getSKOSAnnotationsByURI(DublinCoreVocabulary.CREATOR.getURI(),  factory.getSKOSTypedConstant("String", "Simon Jupp"));
 
         
-        SKOSAnnotationAssertion assertion6 = factory.getSKOSAnnotationAssertion(concept2, anno1);
-        SKOSAnnotationAssertion assertion7 = factory.getSKOSAnnotationAssertion(concept2, anno2);
-        SKOSAnnotationAssertion assertion8 = factory.getSKOSAnnotationAssertion(concept2, anno3);
-        SKOSAnnotationAssertion assertion9 = factory.getSKOSAnnotationAssertion(concept2, anno4);
+//        SKOSAnnotationAssertion assertion6 = factory.getSKOSAnnotationAssertion(concept2, anno1);
+//        SKOSAnnotationAssertion assertion7 = factory.getSKOSAnnotationAssertion(concept2, anno2);
+//        SKOSAnnotationAssertion assertion8 = factory.getSKOSAnnotationAssertion(concept2, anno3);
+//        SKOSAnnotationAssertion assertion9 = factory.getSKOSAnnotationAssertion(concept2, anno4);
 
         /* Add some utility stuff fomr creating single or multiple inScheme objects,
         *  these are afetr all just ObjectPropertyAssertions */
@@ -155,10 +155,10 @@ public class SKOSExample {
         addList.add(new AddAssertion(vocab, assertion3));
         addList.add(new AddAssertion(vocab, assertion4));
         addList.add(new AddAssertion(vocab, assertion5));
-        addList.add(new AddAssertion(vocab, assertion6));
-        addList.add(new AddAssertion(vocab, assertion7));
-        addList.add(new AddAssertion(vocab, assertion8));
-        addList.add(new AddAssertion(vocab, assertion9));
+//        addList.add(new AddAssertion(vocab, assertion6));
+//        addList.add(new AddAssertion(vocab, assertion7));
+//        addList.add(new AddAssertion(vocab, assertion8));
+//        addList.add(new AddAssertion(vocab, assertion9));
         try {
 
 //            man.applyChange(new AddAssertion(vocab, schemaAss));

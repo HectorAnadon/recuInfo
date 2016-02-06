@@ -124,9 +124,9 @@ public class RDFCreator {
 	}
 	
 	public static void main (String args[]) {
-		RDFCreator pene = new RDFCreator();
-        pene.parser("Datos/recordsdc");
-        Model model = pene.getModel();
+		RDFCreator prueba = new RDFCreator();
+        prueba.parser("Datos/recordsdc");
+        Model model = prueba.getModel();
         // write the model in the standar output
         model.write(System.out); 
     }
