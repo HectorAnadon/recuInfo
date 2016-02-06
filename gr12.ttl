@@ -133,7 +133,7 @@ gr12:Person
     dcterms:description "An individual human"@en ;
     a rdfs:Class ;
     rdfs:comment "Person is a person"@en ;
-    rdfs:label "Person"@en ;
+    rdfs:label "Person"@en .
 
 gr12:name
     dcterms:description "A word or set of words by which a person or thing is usually known"@en ;
