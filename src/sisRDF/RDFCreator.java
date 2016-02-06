@@ -175,9 +175,11 @@ public class RDFCreator {
 	
 	public static void ejecutarConsulta1() {
 		//definimos la consulta (tipo query)
-		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/creator/>"
-		+"Select ?doc WHERE  {?doc gr12:creator ?creator."
-				+ "?creator gr12:name \"Javier\" }" ;
+		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
+		+"Select ?doc WHERE {?doc gr12:creator ?creator."
+		//		+ " ?creator gr12:name ?name."
+		//		+ " FILTER regex(?name, \"javier\", \"i\") }";
+		+ "?creator gr12:name \"Javier\" }" ;
 		
 		//ejecutamos la consulta y obtenemos los resultados
 		  Query query = QueryFactory.create(queryString) ;
@@ -188,7 +190,7 @@ public class RDFCreator {
 		    {
 		      QuerySolution soln = results.nextSolution() ;
 		      Resource doc = soln.getResource("doc");  
-		      System.out.println(doc.getURI());
+		      System.out.println(doc.asResource().getURI());
 		    }
 		  } finally { qexec.close() ; }
 	}
