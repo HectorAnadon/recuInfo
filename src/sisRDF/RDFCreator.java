@@ -18,6 +18,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.DOAP;
 import com.hp.hpl.jena.vocabulary.DC;
@@ -41,18 +42,26 @@ public class RDFCreator {
 	private Resource tfg;
 	private Resource tfm;
 	private Resource tesis;
+	private Property name;
+	private Property surname;
+	private Property creatorSchema;
+	private Resource person;
 	
 	public RDFCreator() {
-		model = ModelFactory.createDefaultModel();
-		spaRes = model.createResource("http://languages/spanish");
-		enRes = model.createResource("http://languages/english");
+		model = RDFDataMgr.loadModel("gr12.ttl");
+		spaRes = model.createResource("http://recInfo/gr12/terms/languages/Spanish");
+		enRes = model.createResource("http://recInfo/gr12/terms/languages/English");
 		documentSchema = model.createResource("http://recInfo/gr12/terms/Document");
-		tfg = model.createResource("http://recInfo/gr12/terms/Document/tfg");
+		tfg = model.createResource("http://recInfo/gr12/terms/Document/Tfg");
 		tfg.addProperty(RDFS.subClassOf, documentSchema);
-		tfm = model.createResource("http://recInfo/gr12/terms/Document/tfm");
+		tfm = model.createResource("http://recInfo/gr12/terms/Document/Tfm");
 		tfm.addProperty(RDFS.subClassOf, documentSchema);
-		tesis = model.createResource("http://recInfo/gr12/terms/Document/tesis");
+		tesis = model.createResource("http://recInfo/gr12/terms/Document/Tesis");
 		tesis.addProperty(RDFS.subClassOf, documentSchema);
+		name = model.createProperty("http://recInfo/gr12/terms/name");
+		surname = model.createProperty("http://recInfo/gr12/terms/surname");
+		creatorSchema = model.createProperty("http://recInfo/gr12/terms/creator");
+		person = model.createResource("http://recInfo/gr12/terms/Person");
 	}
 	
 	public Model getModel() {
@@ -94,24 +103,42 @@ public class RDFCreator {
 				}
 				
 				NodeList creatorList = xmlDoc.getElementsByTagName("dc:creator");
-				String creator, creatorURI;
+				String creator, creatorURI, creatorName, creatorSurname;
 				for (int i=0; i<creatorList.getLength(); i++){
 					creator = creatorList.item(i).getTextContent();
-					creator.replaceAll(" ", "");
-					creator.replaceAll(",", "");
-					creatorURI = "http://creators/" + creator;
+					creatorSurname = creator.split(",")[0];
+					if(creator.split(",").length > 1) {
+						creatorName = creator.split(",")[1].trim();
+					} else {
+						creatorName = "John";
+					}
+					creator = creator.replaceAll(" ", "");
+					creator = creator.replaceAll(",", "");
+					creatorURI = "http://recInfo/gr12/terms/creators/" + creator;
 					Resource creatorRes;
 					if(namesSet.contains(creatorURI)){
 						creatorRes = model.getResource(creatorURI);
 					}else{
 						namesSet.add(creatorURI);
-						creatorRes = model.createResource(creatorURI);
+						creatorRes = model.createResource(creatorURI, person);
+						//creatorRes = model.addProperty(RDF.type, person);
+						creatorRes.addProperty(name, creatorName);
+						creatorRes.addProperty(surname, creatorSurname);
 					}
-					document.addProperty(DC.creator, creatorRes);
+					document.addProperty(creatorSchema, creatorRes);
 				}
 				
 				if (xmlDoc.getElementsByTagName("dc:date").item(0) != null) {
 					document.addProperty(DC.date, xmlDoc.getElementsByTagName("dc:date").item(0).getTextContent());
+				}
+				
+				if (xmlDoc.getElementsByTagName("dc:description").item(0) != null) {
+					document.addProperty(DC.description, xmlDoc.getElementsByTagName("dc:description").item(0).getTextContent());
+				}
+				
+				if (xmlDoc.getElementsByTagName("dc:language").item(0) != null && 
+						xmlDoc.getElementsByTagName("dc:language").item(0).getTextContent().contains("spa")) {
+					document.addProperty(DC.language, spaRes);
 				}
 				
 				if (xmlDoc.getElementsByTagName("dc:publisher").item(0) != null) {
