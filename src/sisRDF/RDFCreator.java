@@ -9,6 +9,8 @@ import java.util.TreeSet;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.jena.riot.RDFDataMgr;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
 import org.semanticweb.skos.SKOSConcept;
@@ -17,6 +19,7 @@ import org.xml.sax.SAXException;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.sparql.vocabulary.DOAP;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
@@ -34,11 +37,22 @@ public class RDFCreator {
 	private final String publisher = "dc:publisher";
 	private Resource spaRes;
 	private Resource enRes;
+	private Resource documentSchema;
+	private Resource tfg;
+	private Resource tfm;
+	private Resource tesis;
 	
 	public RDFCreator() {
 		model = ModelFactory.createDefaultModel();
 		spaRes = model.createResource("http://languages/spanish");
 		enRes = model.createResource("http://languages/english");
+		documentSchema = model.createResource("http://recInfo/gr12/terms/Document");
+		tfg = model.createResource("http://recInfo/gr12/terms/Document/tfg");
+		tfg.addProperty(RDFS.subClassOf, documentSchema);
+		tfm = model.createResource("http://recInfo/gr12/terms/Document/tfm");
+		tfm.addProperty(RDFS.subClassOf, documentSchema);
+		tesis = model.createResource("http://recInfo/gr12/terms/Document/tesis");
+		tesis.addProperty(RDFS.subClassOf, documentSchema);
 	}
 	
 	public Model getModel() {
@@ -65,14 +79,14 @@ public class RDFCreator {
 				org.w3c.dom.Document xmlDoc = DB.parse(f);
 				Resource document = null;
 				NodeList identifierList = xmlDoc.getElementsByTagName(identifier);
-				for(int i=0; i < identifierList.getLength(); i++ ) {
-					if (i==0) {
-						document = model.createResource(identifierList.item(i).getTextContent()).addProperty(RDF.type, "URI");
-					}else if(i==1){
-						//TODO: Agnadir TFG/TFM/TESIS
-					}else{
-						document.addProperty(SKOSConceptImpl, identifierList.item(i).getTextContent());
-					}
+				if(identifierList.item(1).getTextContent().toLowerCase().contains("tfg")){
+					document = model.createResource(identifierList.item(0).getTextContent(), tfg);
+				}else if(identifierList.item(1).getTextContent().toLowerCase().contains("tfm")){
+					document = model.createResource(identifierList.item(0).getTextContent(), tfm);
+				}else if(identifierList.item(1).getTextContent().toLowerCase().contains("tesis")){
+					document = model.createResource(identifierList.item(0).getTextContent(), tesis);
+				}else {
+					document = model.createResource(identifierList.item(0).getTextContent(), documentSchema);
 				}
 				
 				if (xmlDoc.getElementsByTagName("dc:title").item(0) != null) {
