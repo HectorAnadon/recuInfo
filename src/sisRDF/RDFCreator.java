@@ -16,11 +16,20 @@ import org.apache.lucene.document.TextField;
 import org.semanticweb.skos.SKOSConcept;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.DOAP;
+import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
@@ -32,7 +41,7 @@ public class RDFCreator {
 
 	private TreeSet<String> namesSet = new TreeSet<String>();
 	private TreeSet<String> publishersSet = new TreeSet<String>();
-	private Model model;
+	private static Model model;
 	private Scanner scanner;
 	private final String identifier = "dc:identifier";
 	private final String publisher = "dc:publisher";
@@ -164,8 +173,24 @@ public class RDFCreator {
 		
 	}
 	
-	public static void ejecutarConsultas() {
+	public static void ejecutarConsulta1() {
+		//definimos la consulta (tipo query)
+		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/creator/>"
+		+"Select ?doc WHERE  {?doc gr12:creator ?creator."
+				+ "?creator gr12:name \"Javier\" }" ;
 		
+		//ejecutamos la consulta y obtenemos los resultados
+		  Query query = QueryFactory.create(queryString) ;
+		  QueryExecution qexec = QueryExecutionFactory.create(query, model) ;
+		  try {
+		    ResultSet results = qexec.execSelect() ;
+		    for ( ; results.hasNext() ; )
+		    {
+		      QuerySolution soln = results.nextSolution() ;
+		      Resource doc = soln.getResource("doc");  
+		      System.out.println(doc.getURI());
+		    }
+		  } finally { qexec.close() ; }
 	}
 	
 	public static void main (String args[]) {
@@ -174,6 +199,7 @@ public class RDFCreator {
         Model model = prueba.getModel();
         // write the model in the standar output
         model.write(System.out); 
+        ejecutarConsulta1();
     }
 	
 }
