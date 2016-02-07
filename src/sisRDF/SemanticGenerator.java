@@ -42,7 +42,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 import uk.ac.manchester.cs.skos.SKOSConceptImpl;
 import uk.ac.manchester.cs.skos.properties.SKOSAltLabelPropertyImpl;
 
-public class RDFCreator {
+public class SemanticGenerator {
 
 	private TreeSet<String> namesSet = new TreeSet<String>();
 	private TreeSet<String> publishersSet = new TreeSet<String>();
@@ -72,7 +72,7 @@ public class RDFCreator {
 	private Resource[] keywordResource = new Resource[keywords.length];
 	private Property keywordProperty;
 	
-	public RDFCreator() {
+	public SemanticGenerator() {
 		model = RDFDataMgr.loadModel("gr12.ttl");
 		RDFDataMgr.read(model, "thesaurus.rdf") ;
 		spaRes = model.createResource("http://recInfo/gr12/terms/languages/Spanish");
@@ -412,7 +412,7 @@ public class RDFCreator {
 		
 	
 	public static void main (String args[]) {
-		RDFCreator prueba = new RDFCreator();
+		SemanticGenerator prueba = new SemanticGenerator();
         prueba.parser("Datos/recordsdc");
         Model model = prueba.getModel();
         // write the model in the standar output
