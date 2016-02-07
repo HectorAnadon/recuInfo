@@ -89,21 +89,21 @@ gr12:Document
     rdfs:comment "A resource as document"@en ;
     rdfs:label "Document"@en .
 
-gr12:TFG
+gr12:Tfg
     dcterms:description "Trabajo Fin de Grado in spanish language"@en ;
     a rdfs:Class ;
     rdfs:comment "Document TFG"@en ;
     rdfs:label "TFG"@en ;
     rdfs:subClassOf gr12:Document .
 
-gr12:TFM
+gr12:Tfm
     dcterms:description "Trabajo Fin de Master in spanish language"@en ;
     a rdfs:Class ;
     rdfs:comment "Document TFM"@en ;
     rdfs:label "TFM"@en ;
     rdfs:subClassOf gr12:Document .
 
-gr12:TESIS
+gr12:Tesis
     dcterms:description "Tesis Doctoral in spanish language"@en ;
     a rdfs:Class ;
     rdfs:comment ""@en ;
