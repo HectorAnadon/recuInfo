@@ -17,18 +17,21 @@ import org.semanticweb.skos.SKOSConcept;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.DOAP;
+import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -55,9 +58,11 @@ public class RDFCreator {
 	private Property surname;
 	private Property creatorSchema;
 	private Resource person;
+	private Property descriptionSchema;
 	
 	public RDFCreator() {
 		model = RDFDataMgr.loadModel("gr12.ttl");
+		model = model.read("Tesauro.xml");
 		spaRes = model.createResource("http://recInfo/gr12/terms/languages/Spanish");
 		enRes = model.createResource("http://recInfo/gr12/terms/languages/English");
 		documentSchema = model.createResource("http://recInfo/gr12/terms/Document");
@@ -71,6 +76,7 @@ public class RDFCreator {
 		surname = model.createProperty("http://recInfo/gr12/terms/surname");
 		creatorSchema = model.createProperty("http://recInfo/gr12/terms/creator");
 		person = model.createResource("http://recInfo/gr12/terms/Person");
+		descriptionSchema = model.createProperty("http://recInfo/gr12/terms/description");
 	}
 	
 	public Model getModel() {
@@ -142,7 +148,7 @@ public class RDFCreator {
 				}
 				
 				if (xmlDoc.getElementsByTagName("dc:description").item(0) != null) {
-					document.addProperty(DC.description, xmlDoc.getElementsByTagName("dc:description").item(0).getTextContent());
+					document.addProperty(descriptionSchema, xmlDoc.getElementsByTagName("dc:description").item(0).getTextContent());
 				}
 				
 				if (xmlDoc.getElementsByTagName("dc:language").item(0) != null && 
@@ -176,10 +182,16 @@ public class RDFCreator {
 	public static void ejecutarConsulta1() {
 		//definimos la consulta (tipo query)
 		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
-		+"Select ?doc WHERE {?doc gr12:creator ?creator."
-		//		+ " ?creator gr12:name ?name."
+		+ "PREFIX skos: <http://RecInfo/gr12/Tesauro#>"
+//		+ "PREFIX dcterms: <http://purl.org/dc/terms/>"
+		+ "Select ?doc ?des WHERE {"
+				+ "?doc gr12:creator ?creator."
+				+ "?doc gr12:description ?des."
+//				+ "?des skos:inScheme <http://RecInfo/gr12/Tesauro#musica>}";
+//				+ " ?creator gr12:name ?n.}";
+				+ " ?creator gr12:name \"Javier\"}";
 		//		+ " FILTER regex(?name, \"javier\", \"i\") }";
-		+ "?creator gr12:name \"Javier\" }" ;
+//		+ "?creator gr12:name \"Javier\" }" ;
 		
 		//ejecutamos la consulta y obtenemos los resultados
 		  Query query = QueryFactory.create(queryString) ;
@@ -190,9 +202,14 @@ public class RDFCreator {
 		    {
 		      QuerySolution soln = results.nextSolution() ;
 		      Resource doc = soln.getResource("doc");  
-		      System.out.println(doc.asResource().getURI());
+		      Literal name = soln.getLiteral("des");
+		      System.out.println(doc.asResource().getURI() + " " + name.toString());
 		    }
 		  } finally { qexec.close() ; }
+	}
+	
+	public static void ejecutarConsulta2() {
+		
 	}
 	
 	public static void main (String args[]) {
@@ -200,7 +217,8 @@ public class RDFCreator {
         prueba.parser("Datos/recordsdc");
         Model model = prueba.getModel();
         // write the model in the standar output
-        model.write(System.out); 
+//        model.write(System.out); 
+        System.out.println("\n\n===============================================================================\n\n");
         ejecutarConsulta1();
     }
 	

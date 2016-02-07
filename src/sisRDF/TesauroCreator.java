@@ -16,6 +16,7 @@ public class TesauroCreator {
 		try {
 			man = new SKOSManager();
 			dataset = man.loadDataset(URI.create(URIfile));
+			
 			for (SKOSConcept concept : dataset.getSKOSConcepts()) {
 			   System.out.println("Concept: " + concept.getURI());
 			}
