@@ -66,11 +66,11 @@ public class RDFCreator {
 		spaRes = model.createResource("http://recInfo/gr12/terms/languages/Spanish");
 		enRes = model.createResource("http://recInfo/gr12/terms/languages/English");
 		documentSchema = model.createResource("http://recInfo/gr12/terms/Document");
-		tfg = model.createResource("http://recInfo/gr12/terms/Document/Tfg");
+		tfg = model.createResource("http://recInfo/gr12/terms/Tfg");
 		tfg.addProperty(RDFS.subClassOf, documentSchema);
-		tfm = model.createResource("http://recInfo/gr12/terms/Document/Tfm");
+		tfm = model.createResource("http://recInfo/gr12/terms/Tfm");
 		tfm.addProperty(RDFS.subClassOf, documentSchema);
-		tesis = model.createResource("http://recInfo/gr12/terms/Document/Tesis");
+		tesis = model.createResource("http://recInfo/gr12/terms/Tesis");
 		tesis.addProperty(RDFS.subClassOf, documentSchema);
 		name = model.createProperty("http://recInfo/gr12/terms/name");
 		surname = model.createProperty("http://recInfo/gr12/terms/surname");
@@ -183,15 +183,12 @@ public class RDFCreator {
 		//definimos la consulta (tipo query)
 		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
 		+ "PREFIX skos: <http://RecInfo/gr12/Tesauro#>"
-//		+ "PREFIX dcterms: <http://purl.org/dc/terms/>"
 		+ "Select ?doc ?des WHERE {"
 				+ "?doc gr12:creator ?creator."
 				+ "?doc gr12:description ?des."
-//				+ "?des skos:inScheme <http://RecInfo/gr12/Tesauro#musica>}";
-//				+ " ?creator gr12:name ?n.}";
-				+ " ?creator gr12:name \"Javier\"}";
-		//		+ " FILTER regex(?name, \"javier\", \"i\") }";
-//		+ "?creator gr12:name \"Javier\" }" ;
+				//+ " ?des skos:broader category:Musica."
+				+ " ?creator gr12:name ?name"
+				+ " FILTER regex(?name, \"javier\", \"i\") }";;
 		
 		//ejecutamos la consulta y obtenemos los resultados
 		  Query query = QueryFactory.create(queryString) ;
@@ -208,8 +205,54 @@ public class RDFCreator {
 		  } finally { qexec.close() ; }
 	}
 	
-	public static void ejecutarConsulta2() {
+	public static void ejecutarConsulta3() {
+		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
+		+ "PREFIX skos: <http://RecInfo/gr12/Tesauro#>"
+		+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+		+ "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
+		+ "Select ?tes ?date WHERE {"
+				+ "?tes rdf:type gr12:Tesis."
+				+ "?tes dc:date ?date."
+				+ "FILTER (?date > \"2009\")"
+				+ "FILTER (?date < \"2016\")}";
 		
+		//ejecutamos la consulta y obtenemos los resultados
+		  Query query = QueryFactory.create(queryString) ;
+		  QueryExecution qexec = QueryExecutionFactory.create(query, model) ;
+		  try {
+		    ResultSet results = qexec.execSelect() ;
+		    for ( ; results.hasNext() ; )
+		    {
+		      QuerySolution soln = results.nextSolution() ;
+		      Resource tes = soln.getResource("tes");  
+		      Literal date = soln.getLiteral("date");
+		      System.out.println(tes.asResource().getURI() + " " + date.toString());
+		    }
+		  } finally { qexec.close() ; }
+	}
+	
+	public static void ejecutarConsulta4() {
+		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
+		+ "PREFIX skos: <http://RecInfo/gr12/Tesauro#>"
+		+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+		+ "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
+		+ "Select ?doc ?date WHERE {"
+				+ "?doc dc:date ?date."
+				+ "FILTER (?date > \"2009\")}";
+		
+		//ejecutamos la consulta y obtenemos los resultados
+		  Query query = QueryFactory.create(queryString) ;
+		  QueryExecution qexec = QueryExecutionFactory.create(query, model) ;
+		  try {
+		    ResultSet results = qexec.execSelect() ;
+		    for ( ; results.hasNext() ; )
+		    {
+		      QuerySolution soln = results.nextSolution() ;
+		      Resource doc = soln.getResource("doc");  
+		      Literal date = soln.getLiteral("date");
+		      System.out.println(doc.asResource().getURI() + " " + date.toString());
+		    }
+		  } finally { qexec.close() ; }
 	}
 	
 	public static void main (String args[]) {
@@ -219,7 +262,7 @@ public class RDFCreator {
         // write the model in the standar output
 //        model.write(System.out); 
         System.out.println("\n\n===============================================================================\n\n");
-        ejecutarConsulta1();
+        ejecutarConsulta3();
     }
 	
 }
