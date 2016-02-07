@@ -283,4 +283,56 @@
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#decoracion"/>
     </skos:Concept>
     
+    
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#historia">
+        <skos:prefLabel xml:lang="es">historia</skos:prefLabel>
+        <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
+        <skos:topConceptOf rdf:resource="http://RecInfo/gr12/Tesauro"/>
+    </skos:Concept>
+    
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#historico">
+        <skos:prefLabel xml:lang="es">histórico</skos:prefLabel>
+        <skos:altLabel xml:lang="es">historico</skos:altLabel>
+        <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#historia"/>
+    </skos:Concept>
+    
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#gotico">
+        <skos:prefLabel xml:lang="es">gótico</skos:prefLabel>
+        <skos:altLabel xml:lang="es">gótica</skos:altLabel>
+        <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#historia"/>
+    </skos:Concept>
+    
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#edadMedia">
+        <skos:prefLabel xml:lang="es">Edad Media</skos:prefLabel>
+        <skos:altLabel xml:lang="es">edad media</skos:altLabel>
+        <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#historia"/>
+    </skos:Concept>
+    
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#castillo">
+        <skos:prefLabel xml:lang="es">castillo</skos:prefLabel>
+        <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#historia"/>
+    </skos:Concept>
+    
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#yacimiento">
+        <skos:prefLabel xml:lang="es">yacimiento</skos:prefLabel>
+        <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#historia"/>
+    </skos:Concept>
+    
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#medieval">
+        <skos:prefLabel xml:lang="es">medieval</skos:prefLabel>
+        <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#historia"/>
+    </skos:Concept>
+    
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#siglo">
+        <skos:prefLabel xml:lang="es">siglo</skos:prefLabel>
+        <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#historia"/>
+    </skos:Concept>
+    
     </rdf:RDF>
