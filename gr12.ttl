@@ -145,3 +145,11 @@ gr12:surname
     rdfs:domain gr12:Person ;
     rdfs:range rdfs:Literal ;
     rdfs:label "Surname"@en .
+    
+gr12:keyword
+    dcterms:description "Keyword that belongs to the doc"@en ;
+    a rdf:Property ;
+    rdfs:label "Title"@en ;
+    rdfs:domain gr12:Document ;
+    rdfs:range skos:Concept ;
+    rdfs:label "KeyWord"@en .

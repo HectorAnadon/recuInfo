@@ -61,6 +61,9 @@ public class RDFCreator {
 	private Property creatorSchema;
 	private Resource person;
 	private Property descriptionSchema;
+	private String[] keywords = {"videojuego", "guerra"};
+	private Resource[] keywordResource = new Resource[keywords.length];
+	private Property keywordProperty;
 	
 	public RDFCreator() {
 		model = RDFDataMgr.loadModel("gr12.ttl");
@@ -79,6 +82,10 @@ public class RDFCreator {
 		creatorSchema = model.createProperty("http://recInfo/gr12/terms/creator");
 		person = model.createResource("http://recInfo/gr12/terms/Person");
 		descriptionSchema = model.createProperty("http://recInfo/gr12/terms/description");
+		
+		keywordResource[0] = model.createResource("http://RecInfo/gr12/Tesauro#videojuego");
+		keywordResource[1] = model.createResource("http://RecInfo/gr12/Tesauro#guerraIndependencia");
+		keywordProperty = model.createProperty("http://recInfo/gr12/terms/keyword");
 	}
 	
 	public Model getModel() {
@@ -117,6 +124,12 @@ public class RDFCreator {
 				
 				if (xmlDoc.getElementsByTagName("dc:title").item(0) != null) {
 					document.addProperty(DC.title, xmlDoc.getElementsByTagName("dc:title").item(0).getTextContent());
+					String text = xmlDoc.getElementsByTagName("dc:title").item(0).getTextContent().toLowerCase();
+					for (int i = 0; i < keywords.length; i++) {
+						if (text.contains(keywords[i])) {
+							document.addProperty(keywordProperty, keywordResource[i]);
+						}
+					}
 				}
 				
 				NodeList creatorList = xmlDoc.getElementsByTagName("dc:creator");
@@ -238,8 +251,11 @@ public class RDFCreator {
 		+ "PREFIX skos: <http://RecInfo/gr12/Tesauro#>"
 		+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
 		+ "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
-		+ "Select ?doc ?date WHERE {"
+		+ "Select ?doc ?date ?key WHERE {"
 				+ "?doc dc:date ?date."
+				+ "?doc gr12:keyword ?key."
+				//Todo: solo falta esto y lo tenemos
+				//+ "?key rdf:about \"http://RecInfo/gr12/Tesauro#videojuego\"."
 				+ "FILTER (?date > \"2009\")}";
 		
 		//ejecutamos la consulta y obtenemos los resultados
@@ -252,7 +268,9 @@ public class RDFCreator {
 		      QuerySolution soln = results.nextSolution() ;
 		      Resource doc = soln.getResource("doc");  
 		      Literal date = soln.getLiteral("date");
+		      Resource key = soln.getResource("key");
 		      System.out.println(doc.asResource().getURI() + " " + date.toString());
+		      System.out.println(key);
 		    }
 		  } finally { qexec.close() ; }
 	}
@@ -262,6 +280,7 @@ public class RDFCreator {
         prueba.parser("Datos/recordsdc");
         Model model = prueba.getModel();
         // write the model in the standar output
+        //model.write(System.out); 
         try {
 			PrintWriter writer = new PrintWriter("a", "UTF-8");
 			model.write(writer);
@@ -273,7 +292,7 @@ public class RDFCreator {
 			e.printStackTrace();
 		}
         System.out.println("\n\n===============================================================================\n\n");
-        ejecutarConsulta3();
+        ejecutarConsulta4();
     }
 	
 }
