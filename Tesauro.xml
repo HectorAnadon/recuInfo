@@ -51,7 +51,7 @@
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#musica"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#guerraIndependencia">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#guerraindependencia">
         <skos:prefLabel xml:lang="es">guerra de Independencia</skos:prefLabel>
         <skos:altLabel xml:lang="es">Guerra de Independencia</skos:altLabel>
         <skos:altLabel xml:lang="es">guerra de la Independencia</skos:altLabel>
@@ -65,34 +65,34 @@
         <skos:altLabel xml:lang="es">ejercito</skos:altLabel>
         <skos:altLabel xml:lang="es">ejércitos</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraIndependencia"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraindependencia"/>
     </skos:Concept>
     
     <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#dictadura">
         <skos:prefLabel xml:lang="es">dictadura</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraIndependencia"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraindependencia"/>
     </skos:Concept>
     
     <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#batalla">
         <skos:prefLabel xml:lang="es">batalla</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraIndependencia"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraindependencia"/>
     </skos:Concept>
     
     <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#victoria">
         <skos:prefLabel xml:lang="es">victoria</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraIndependencia"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraindependencia"/>
     </skos:Concept>
     
     <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#derrota">
         <skos:prefLabel xml:lang="es">derrota</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraIndependencia"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraindependencia"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#energiasRenovables">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#energiasrenovables">
         <skos:prefLabel xml:lang="es">energías renovables</skos:prefLabel>
         <skos:altLabel xml:lang="es">energias renovables</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
@@ -104,41 +104,41 @@
         <skos:altLabel xml:lang="es">energia geotermica</skos:altLabel>
         <skos:altLabel xml:lang="es">energía geotermica</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasRenovables"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasrenovables"/>
     </skos:Concept>
     
     <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#energiaSolar">
         <skos:prefLabel xml:lang="es">energía solar</skos:prefLabel>
         <skos:altLabel xml:lang="es">energia solar</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasRenovables"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasrenovables"/>
     </skos:Concept>
     
     <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#medioAmbiente">
         <skos:prefLabel xml:lang="es">medioambiente</skos:prefLabel>
         <skos:altLabel xml:lang="es">medio ambiente</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasRenovables"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasrenovables"/>
     </skos:Concept>
     
     <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#biomasa">
         <skos:prefLabel xml:lang="es">biomasa</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasRenovables"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasrenovables"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#parqueEolico">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#parqueeolico">
         <skos:prefLabel xml:lang="es">parque eólico</skos:prefLabel>
         <skos:altLabel xml:lang="es">parque eolico</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasRenovables"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasrenovables"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#energiaEolica">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#energiaeolica">
         <skos:prefLabel xml:lang="es">energía eólica</skos:prefLabel>
         <skos:altLabel xml:lang="es">energia eolica</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
-        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasRenovables"/>
+        <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#energiasrenovables"/>
     </skos:Concept>
     
     
@@ -149,7 +149,7 @@
         <skos:topConceptOf rdf:resource="http://RecInfo/gr12/Tesauro"/>
     </skos:Concept>
     
-     <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#unrealTournament">
+     <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#unrealtournament">
         <skos:prefLabel xml:lang="es">Unreal Tournament</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#videojuego"/>
@@ -161,7 +161,7 @@
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#videojuego"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#motorGrafico">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#motorgrafico">
         <skos:prefLabel xml:lang="es">motor gráfico</skos:prefLabel>
         <skos:altLabel xml:lang="es">motor grafico</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
@@ -181,7 +181,7 @@
     </skos:Concept>
     
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#disegno">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#diseno">
         <skos:prefLabel xml:lang="es">diseño</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
         <skos:topConceptOf rdf:resource="http://RecInfo/gr12/Tesauro"/>
@@ -201,7 +201,7 @@
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#disegno"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#arquitecturaDeRed">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#arquitecturadered">
         <skos:prefLabel xml:lang="es">arquitectura de red</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#disegno"/>
@@ -213,7 +213,7 @@
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#disegno"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#clienteServidor">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#clienteservidor">
         <skos:prefLabel xml:lang="es">cliente-servidor</skos:prefLabel>
         <skos:altLabel xml:lang="es">cliente servidor</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
@@ -264,14 +264,14 @@
         <skos:topConceptOf rdf:resource="http://RecInfo/gr12/Tesauro"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#elementoDecorativo">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#elementodecorativo">
         <skos:prefLabel xml:lang="es">elemento decorativo</skos:prefLabel>
         <skos:altLabel xml:lang="es">elementos decorativos</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#decoracion"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#arteMueble">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#artemueble">
         <skos:prefLabel xml:lang="es">arte mueble</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#decoracion"/>
@@ -304,7 +304,7 @@
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#historia"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#edadMedia">
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#edadmedia">
         <skos:prefLabel xml:lang="es">Edad Media</skos:prefLabel>
         <skos:altLabel xml:lang="es">edad media</skos:altLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
@@ -335,4 +335,4 @@
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#historia"/>
     </skos:Concept>
     
-    </rdf:RDF>
+</rdf:RDF>
