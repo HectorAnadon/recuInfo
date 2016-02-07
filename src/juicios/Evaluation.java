@@ -8,7 +8,7 @@ public class Evaluation {
 	public static void main(String[] args) {
 		Parser p = new Parser();
 		p.startQrel("practica3/zaguanRels.txt");
-		p.startResult("practica3/equipo12.txt");
+		p.startResult("practica3/equipo12Semantica.txt");
 		ArrayList<Qrel> qrel = p.getQrelList();
 		ArrayList<Result> results = p.getResultList();
 		double precisionTotal = 0;
