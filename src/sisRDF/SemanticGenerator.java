@@ -72,9 +72,9 @@ public class SemanticGenerator {
 	private Resource[] keywordResource = new Resource[keywords.length];
 	private Property keywordProperty;
 	
-	public SemanticGenerator() {
+	public SemanticGenerator(String skosPath) {
 		model = RDFDataMgr.loadModel("gr12.ttl");
-		RDFDataMgr.read(model, "thesaurus.rdf") ;
+		RDFDataMgr.read(model, skosPath) ;
 		spaRes = model.createResource("http://recInfo/gr12/terms/languages/Spanish");
 		enRes = model.createResource("http://recInfo/gr12/terms/languages/English");
 		documentSchema = model.createResource("http://recInfo/gr12/terms/Document");
@@ -221,204 +221,31 @@ public class SemanticGenerator {
 	          }
 		
 	}
-	
-	public static void ejecutarConsulta1() {
-		//definimos la consulta (tipo query)
-		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
-		+ "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
-		+ "Select distinct ?doc WHERE {"
-				+ "?doc gr12:creator ?creator."
-				+ "?doc gr12:keyword ?key."
-
-				+ "{?key skos:broader ?key2."
-				+ "?key2 skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"música\")}"
-				+ "UNION"
-				+ " {"
-				+ "?key skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"música\")}"
-				+ " ?creator gr12:name ?name"
-				+ " FILTER regex(?name, \"javier\", \"i\") }";;
-		
-		//ejecutamos la consulta y obtenemos los resultados
-		  Query query = QueryFactory.create(queryString) ;
-		  QueryExecution qexec = QueryExecutionFactory.create(query, model) ;
-		  try {
-			    ResultSet results = qexec.execSelect() ;
-			    for ( ; results.hasNext() ; )
-			    {
-			      QuerySolution soln = results.nextSolution() ;
-			      Resource doc = soln.getResource("doc");  
-			      //Literal date = soln.getLiteral("date");
-			      //Resource key = soln.getResource("key");
-			      System.out.println("13-2\t" + "oai_zaguan.unizar.es_"+
-			    		  doc.asResource().getURI().replaceAll("[^0-9]", "") +".xml");
-			      //System.out.println(key);
-			    }
-			  } finally { qexec.close() ; }
-	}
-	
-	public static void ejecutarConsulta2() {
-		//definimos la consulta (tipo query)
-		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
-		+ "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
-		+ "Select distinct ?doc WHERE {"
-				+ "?doc gr12:keyword ?key."
-
-				+ "{?key skos:broader ?key2."
-				+ "?key2 skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"guerra de Independencia\")}"
-				+ "UNION"
-				+ " {"
-				+ "?key skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"guerra de Independencia\")}}";
-
-		
-		//ejecutamos la consulta y obtenemos los resultados
-		  Query query = QueryFactory.create(queryString) ;
-		  QueryExecution qexec = QueryExecutionFactory.create(query, model) ;
-		  try {
-			    ResultSet results = qexec.execSelect() ;
-			    for ( ; results.hasNext() ; )
-			    {
-			      QuerySolution soln = results.nextSolution() ;
-			      Resource doc = soln.getResource("doc");  
-			      //Literal date = soln.getLiteral("date");
-			      //Resource key = soln.getResource("key");
-			      System.out.println("02-4\t" + "oai_zaguan.unizar.es_"+
-			    		  doc.asResource().getURI().replaceAll("[^0-9]", "") +".xml");
-			      //System.out.println(key);
-			    }
-			  } finally { qexec.close() ; }
-	}
-	
-	public static void ejecutarConsulta3() {
-		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
-		+ "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
-		+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-		+ "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
-		+ "Select distinct ?tes WHERE {"
-				+ "?tes rdf:type gr12:Tesis."
-				+ "?tes gr12:keyword ?key."
-
-				+ "{?key skos:broader ?key2."
-				+ "?key2 skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"energías renovables\")}"
-				+ "UNION"
-				+ " {"
-				+ "?key skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"energías renovables\")}"
-				+ "?tes dc:date ?date."
-				+ "FILTER (?date > \"2009\")"
-				+ "FILTER (?date < \"2016\")}";
-		
-		//ejecutamos la consulta y obtenemos los resultados
-		  Query query = QueryFactory.create(queryString) ;
-		  QueryExecution qexec = QueryExecutionFactory.create(query, model) ;
-		  try {
-			    ResultSet results = qexec.execSelect() ;
-			    for ( ; results.hasNext() ; )
-			    {
-			      QuerySolution soln = results.nextSolution() ;
-			      Resource doc = soln.getResource("tes");  
-			      //Literal date = soln.getLiteral("date");
-			      //Resource key = soln.getResource("key");
-			      System.out.println("09-3\t" + "oai_zaguan.unizar.es_"+
-			    		  doc.asResource().getURI().replaceAll("[^0-9]", "") +".xml");
-			      //System.out.println(key);
-			    }
-			  } finally { qexec.close() ; }
-	}
-	
-	public static void ejecutarConsulta4() {
-		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
-		+ "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
-		+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-		+ "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
-		+ "Select distinct ?doc WHERE {"
-				+ "?doc dc:date ?date."
-				+ "?doc gr12:keyword ?key."
-
-				+ "{?key skos:broader ?key2."
-				+ "?key2 skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"videojuego\")}"
-				+ "UNION"
-				+ " {"
-				+ "?key skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"videojuego\")}"
-				+ "FILTER (?date > \"2009\")}";
-		
-		//ejecutamos la consulta y obtenemos los resultados
-		  Query query = QueryFactory.create(queryString) ;
-		  QueryExecution qexec = QueryExecutionFactory.create(query, model) ;
-		  try {
-		    ResultSet results = qexec.execSelect() ;
-		    for ( ; results.hasNext() ; )
-		    {
-		      QuerySolution soln = results.nextSolution() ;
-		      Resource doc = soln.getResource("doc");  
-		      //Literal date = soln.getLiteral("date");
-		      //Resource key = soln.getResource("key");
-		      System.out.println("07-2\t" + "oai_zaguan.unizar.es_"+
-		    		  doc.asResource().getURI().replaceAll("[^0-9]", "") +".xml");
-		      //System.out.println(key);
-		    }
-		  } finally { qexec.close() ; }
-	}
-	
-	public static void ejecutarConsulta5() {
-		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
-		+ "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
-		+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-		+ "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
-		+ "Select distinct ?doc WHERE {"
-				+ "?doc gr12:keyword ?key."
-
-				+ "{{?key skos:broader ?key2."
-				+ "?key2 skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"construcción\")}"
-				+ "UNION"
-				+ " {"
-				+ "?key skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"construcción\")}}"
-				+ "UNION"
-				+ "{{?key skos:broader ?key2."
-				+ "?key2 skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"decoración\")}"
-				+ "UNION"
-				+ " {"
-				+ "?key skos:prefLabel ?prefLabel."
-				+ "FILTER regex(?prefLabel,\"decoración\")}}"
-				+ "}";
-
-		
-		//ejecutamos la consulta y obtenemos los resultados
-		  Query query = QueryFactory.create(queryString) ;
-		  QueryExecution qexec = QueryExecutionFactory.create(query, model) ;
-		  try {
-		    ResultSet results = qexec.execSelect() ;
-		    for ( ; results.hasNext() ; )
-		    {
-		      QuerySolution soln = results.nextSolution() ;
-		      Resource doc = soln.getResource("doc");  
-		      //Literal date = soln.getLiteral("date");
-		      //Resource key = soln.getResource("key");
-		      System.out.println("05-5\t" + "oai_zaguan.unizar.es_"+
-		    		  doc.asResource().getURI().replaceAll("[^0-9]", "") +".xml");
-		      //System.out.println(key);
-		    }
-		  } finally { qexec.close() ; }
-	}
 		
 	
 	public static void main (String args[]) {
-		SemanticGenerator prueba = new SemanticGenerator();
-        prueba.parser("Datos/recordsdc");
+		String rdfPath = "modelo.rdf";
+		String skosPath = "thesaurus.rdf";
+		String docsPath = "Datos/recordsdc";
+		for(int i=0;i<args.length;i++) {
+	      if ("-rdf".equals(args[i])) {
+	    	  rdfPath = args[i+1];
+	        i++;
+	      } else if ("-skos".equals(args[i])) {
+	    	  skosPath = args[i+1];
+	        i++;
+	      } else if ("-docs".equals(args[i])) {
+	    	  docsPath = args[i+1];
+	        i++;
+	      }
+	    }
+		SemanticGenerator prueba = new SemanticGenerator(skosPath);
+        prueba.parser(docsPath);
         Model model = prueba.getModel();
         // write the model in the standar output
         //model.write(System.out); 
         try {
-			PrintWriter writer = new PrintWriter("a", "UTF-8");
+			PrintWriter writer = new PrintWriter(rdfPath, "UTF-8");
 			model.write(writer);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -427,12 +254,6 @@ public class SemanticGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println("\n\n===============================================================================\n\n");
-        ejecutarConsulta1();
-        ejecutarConsulta2();
-        ejecutarConsulta3();
-        ejecutarConsulta4();
-        ejecutarConsulta5();
     }
 	
 }
