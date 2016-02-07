@@ -80,14 +80,14 @@
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraIndependencia"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#primoDeRivera">
-        <skos:prefLabel xml:lang="es">Primo de Rivera</skos:prefLabel>
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#victoria">
+        <skos:prefLabel xml:lang="es">victoria</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraIndependencia"/>
     </skos:Concept>
     
-    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#franco">
-        <skos:prefLabel xml:lang="es">Franco</skos:prefLabel>
+    <skos:Concept rdf:about="http://RecInfo/gr12/Tesauro#derrota">
+        <skos:prefLabel xml:lang="es">derrota</skos:prefLabel>
         <skos:inScheme rdf:resource="http://RecInfo/gr12/Tesauro"/>
         <skos:broader rdf:resource="http://RecInfo/gr12/Tesauro#guerraIndependencia"/>
     </skos:Concept>
