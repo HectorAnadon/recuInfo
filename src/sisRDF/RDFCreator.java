@@ -279,7 +279,7 @@ public class RDFCreator {
 		+ "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
 		+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
 		+ "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
-		+ "Select ?doc ?date ?key WHERE {"
+		+ "Select distinct ?doc WHERE {"
 				+ "?doc dc:date ?date."
 				+ "?doc gr12:keyword ?key."
 
@@ -301,52 +301,15 @@ public class RDFCreator {
 		    {
 		      QuerySolution soln = results.nextSolution() ;
 		      Resource doc = soln.getResource("doc");  
-		      Literal date = soln.getLiteral("date");
-		      Resource key = soln.getResource("key");
-		      System.out.println(doc.asResource().getURI() + " " + date.toString());
-		      System.out.println(key);
+		      //Literal date = soln.getLiteral("date");
+		      //Resource key = soln.getResource("key");
+		      System.out.println("07-02\t" + "oai_zaguan.unizar.es_"+
+		    		  doc.asResource().getURI().replaceAll("[^0-9]", "") +".xml");
+		      //System.out.println(key);
 		    }
 		  } finally { qexec.close() ; }
 	}
-	
-	public static void ejecutarConsultaPrueba() {
-//		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
-//		+ "PREFIX skos: <http://RecInfo/gr12/Tesauro#>"
-//		+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-//		+ "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
-//		+ "Select ?doc ?date ?key WHERE {"
-//				+ "?doc dc:date ?date."
-//				+ "?doc gr12:keyword ?key."
-//				//Todo: solo falta esto y lo tenemos
-//				+ "?key skos:inScheme \"http://RecInfo/gr12/Tesauro#videojuego\"."
-//				+ "FILTER (?date > \"2009\")}";
 		
-		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
-				+ "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
-				+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-				+ "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
-				+ "SELECT ?a WHERE {"
-					+ "?a skos:broader \"http://RecInfo/gr12/Tesauro\"}";
-
-		
-		//ejecutamos la consulta y obtenemos los resultados
-		  Query query = QueryFactory.create(queryString) ;
-		  QueryExecution qexec = QueryExecutionFactory.create(query, model) ;
-		  try {
-		    ResultSet results = qexec.execSelect() ;
-		    for ( ; results.hasNext() ; )
-		    {
-		      QuerySolution soln = results.nextSolution() ;
-		      Resource a = soln.getResource("a");
-//		      Resource doc = soln.getResource("doc");  
-//		      Literal date = soln.getLiteral("date");
-//		      Resource key = soln.getResource("key");
-//		      System.out.println(doc.asResource().getURI() + " " + date.toString());
-//		      System.out.println(key);
-		      System.out.println(a);
-		    }
-		  } finally { qexec.close() ; }
-	}
 	
 	public static void main (String args[]) {
 		RDFCreator prueba = new RDFCreator();
@@ -365,7 +328,7 @@ public class RDFCreator {
 			e.printStackTrace();
 		}
         System.out.println("\n\n===============================================================================\n\n");
-        ejecutarConsultaPrueba();
+        ejecutarConsulta4();
     }
 	
 }
