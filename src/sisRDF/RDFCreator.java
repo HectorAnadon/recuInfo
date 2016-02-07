@@ -61,7 +61,14 @@ public class RDFCreator {
 	private Property creatorSchema;
 	private Resource person;
 	private Property descriptionSchema;
-	private String[] keywords = {"videojuego", "guerra"};
+	private String[] keywords = {"musica", "sonido", "rock", "banda", "instrumento",
+			"concierto", "guerra de independencia", "ejercito", "dictadura", "batalla", "victoria", "derrota",
+			"energías renovables", "energía geotérmica", "energía solar", "medio ambiente", "biomasa", 
+			"parque eólico", "energía eólica", "videojuego", "unreal tournament", "unity", "motor gráfico",
+			"simulador", "multijugado", "diseño", "programacion", "implementación", "arquitectura de red",
+			"centralizado", "contrucción", "arquitecto", "arquitectura", "restauración", "rehabilitación",
+			"decoración", "elemento decorativo", "arte mueble", "escultura", "historia", "histórico", "gótico", 
+			"edad media", "castillo", "yacimiento", "medieval", "siglo"};
 	private Resource[] keywordResource = new Resource[keywords.length];
 	private Property keywordProperty;
 	
@@ -83,14 +90,29 @@ public class RDFCreator {
 		person = model.createResource("http://recInfo/gr12/terms/Person");
 		descriptionSchema = model.createProperty("http://recInfo/gr12/terms/description");
 		
-		keywordResource[0] = model.createResource("http://RecInfo/gr12/Tesauro#videojuego");
-		keywordResource[1] = model.createResource("http://RecInfo/gr12/Tesauro#guerraIndependencia");
+		String keywordPrefix = "http://RecInfo/gr12/Tesauro#";
+		for(int i=0; i < keywords.length; i++) {
+			keywordResource[i] = model.createResource(keywordPrefix + remove1(keywords[i].trim()));
+		}
 		keywordProperty = model.createProperty("http://recInfo/gr12/terms/keyword");
 	}
 	
 	public Model getModel() {
 		return model;
 	}
+	
+	public static String remove1(String input) {
+	    // Cadena de caracteres original a sustituir.
+	    String original = "áàäéèëíìïóòöúùuñ";
+	    // Cadena de caracteres ASCII que reemplazarán los originales.
+	    String ascii = "aaaeeeiiiooouuun";
+	    String output = input;
+	    for (int i=0; i<original.length(); i++) {
+	        // Reemplazamos los caracteres especiales.
+	        output = output.replace(original.charAt(i), ascii.charAt(i));
+	    }//for i
+	    return output;
+	}//remove1
 	
 	public void parser (String path){
 		File dir = new File(path);
@@ -164,6 +186,12 @@ public class RDFCreator {
 				
 				if (xmlDoc.getElementsByTagName("dc:description").item(0) != null) {
 					document.addProperty(descriptionSchema, xmlDoc.getElementsByTagName("dc:description").item(0).getTextContent());
+					String text = xmlDoc.getElementsByTagName("dc:description").item(0).getTextContent().toLowerCase();
+					for (int i = 0; i < keywords.length; i++) {
+						if (text.contains(keywords[i])) {
+							document.addProperty(keywordProperty, keywordResource[i]);
+						}
+					}
 				}
 				
 				if (xmlDoc.getElementsByTagName("dc:language").item(0) != null && 
@@ -248,7 +276,7 @@ public class RDFCreator {
 	
 	public static void ejecutarConsulta4() {
 		String queryString = "PREFIX gr12: <http://recInfo/gr12/terms/>"
-		+ "PREFIX skos: <http://RecInfo/gr12/Tesauro#>"
+		+ "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
 		+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
 		+ "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
 		+ "Select ?doc ?date ?key WHERE {"
@@ -256,6 +284,13 @@ public class RDFCreator {
 				+ "?doc gr12:keyword ?key."
 				//Todo: solo falta esto y lo tenemos
 				//+ "?key rdf:about \"http://RecInfo/gr12/Tesauro#videojuego\"."
+				+ "{?key skos:broader ?key2."
+				+ "?key2 skos:prefLabel ?prefLabel."
+				+ "FILTER regex(?prefLabel,\"videojuego\")}"
+				+ "UNION"
+				+ " {"
+				+ "?key skos:prefLabel ?prefLabel."
+				+ "FILTER regex(?prefLabel,\"videojuego\")}"
 				+ "FILTER (?date > \"2009\")}";
 		
 		//ejecutamos la consulta y obtenemos los resultados
