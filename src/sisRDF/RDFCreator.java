@@ -3,6 +3,8 @@ package sisRDF;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -62,7 +64,7 @@ public class RDFCreator {
 	
 	public RDFCreator() {
 		model = RDFDataMgr.loadModel("gr12.ttl");
-		model = model.read("Tesauro.xml");
+		RDFDataMgr.read(model, "thesaurus.rdf") ;
 		spaRes = model.createResource("http://recInfo/gr12/terms/languages/Spanish");
 		enRes = model.createResource("http://recInfo/gr12/terms/languages/English");
 		documentSchema = model.createResource("http://recInfo/gr12/terms/Document");
@@ -187,11 +189,9 @@ public class RDFCreator {
 		+ "Select ?doc ?des WHERE {"
 				+ "?doc gr12:creator ?creator."
 				+ "?doc gr12:description ?des."
-//				+ "?des skos:inScheme <http://RecInfo/gr12/Tesauro#musica>}";
+				+ "?des skos:inScheme \"musica\"."
 //				+ " ?creator gr12:name ?n.}";
 				+ " ?creator gr12:name \"Javier\"}";
-		//		+ " FILTER regex(?name, \"javier\", \"i\") }";
-//		+ "?creator gr12:name \"Javier\" }" ;
 		
 		//ejecutamos la consulta y obtenemos los resultados
 		  Query query = QueryFactory.create(queryString) ;
@@ -217,7 +217,16 @@ public class RDFCreator {
         prueba.parser("Datos/recordsdc");
         Model model = prueba.getModel();
         // write the model in the standar output
-//        model.write(System.out); 
+        try {
+			PrintWriter writer = new PrintWriter("a", "UTF-8");
+			model.write(writer);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         System.out.println("\n\n===============================================================================\n\n");
         ejecutarConsulta1();
     }
